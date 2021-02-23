@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'containers',
     'queued',
     'import_export',
+    'pages',
 ]
 
 MIDDLEWARE = [
