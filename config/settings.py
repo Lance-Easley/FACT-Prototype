@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'contracts',
     'containers',
     'queued',
+    'import_export',
 ]
 
 MIDDLEWARE = [
