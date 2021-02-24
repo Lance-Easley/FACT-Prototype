@@ -19,4 +19,6 @@ section {
     height: 1px;
     border-bottom: 5px solid #0044AA;
     margin-bottom: 20px;
+    margin-left: -1px;
+    width: calc(100% + 2px);
 }
