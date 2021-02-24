@@ -13,18 +13,39 @@
   <body>
     <h1 id="title">VAST - Cargo Transfer PENDING</h1>
     <section id="contract-info">
-      <p><b>Contract NO.:</b> AK023479</p>
-      <p><b>Product CO.:</b> Walmart</p>
-      <p><b>Product:</b> Fidget Spinners</p>
-      <p><b>Operator:</b> That guy over there</p>
-      <p><b>Total Weight:</b> 9001</p>
-      <p><b>Contract Date:</b> 7/23/2036</p>
-      <p><b>Restrictions:</b> None</p>
+      <div class="info-field">
+        <p><b>Contract NO.:</b></p>
+        <p>AK023479</p>
+      </div>
+      <div class="info-field">
+        <p><b>Total Weight:</b></p>
+        <p>9001</p>
+      </div>
+      <div class="info-field">
+        <p><b>Product CO.:</b></p>
+        <p>Walmart</p>
+      </div>
+      <div class="info-field">
+        <p><b>Contract Date:</b></p>
+        <p>7/23/2036</p>
+      </div>
+      <div class="info-field">
+        <p><b>Product:</b></p>
+        <p>Fidget Spinners</p>
+      </div>
+      <div class="info-field">
+        <p><b>Restrictions:</b></p>
+        <p>None</p>
+      </div>
+      <div class="info-field">
+        <p><b>Operator:</b></p>
+        <p>That guy over there</p>
+      </div>
   </section>
   <div class="border-line"></div>
   <section id="current-containers">
     <div id="current-containers-parts">
-      <table style="width:90%">
+      <!-- <table style="width:90%">
         <tr id="curr-headers">
           <th>Current Containers</th>
           <th>Bill of Lading</th>
@@ -35,25 +56,47 @@
         </tr>
         <tr>
           <td>JNL10-448</td>
-          <td><a href="">BL144</a></td>
-          <td><a href="">COC</a></td>
+          <td><a href="#">BL144</a></td>
+          <td><a href="#">COC</a></td>
           <td>38,539</td>
           <td>49.1%</td>
           <td><a href="#">T</a></td>
         </tr>
-      </table>
+      </table> -->
+      <div class="container-headers">
+        <p><b>Current Containers</b></p>
+        <p class="align-end"><b>Tare WT</b></p>
+        <p class="align-end"><b>DISTR</b></p>
+        <p class="align-center"><b>XFR</b></p>
+      </div>
+      <div class="container-info">
+        <p>JNL/10-448</p>
+        <p><a href="#">BL144</a></p>
+        <p><a href="#">COC</a></p>
+        <p class="align-end">38538</p>
+        <p class="align-end">49.1%</p>
+        <p class="align-center"><a href="#">T</a></p>
+      </div>
+      <div class="container-info">
+        <p>JNL/10-429</p>
+        <p><a href="#">BL154</a></p>
+        <p><a href="#">COC</a></p>
+        <p class="align-end">39878</p>
+        <p class="align-end">50.9%</p>
+        <p class="align-center"><a href="#">T</a></p>
+      </div>
     </div>
   </section>
   <div class="border-line"></div>
   <section id="pending">
-    <table style="width:90%">
+    <!-- <table style="width:90%">
         <tr>
           <th>Pending Containers</th>
-    <!-- List the pending containers -->
+    List the pending containers
         <th>Tare Weight</th>
-            <!-- List Weight for each container -->
+            List Weight for each container
         <th>Distribution</th>
-            <!-- List Distribution for related container -->
+            List Distribution for related container
         </tr>
         <tr>
           <td>...</td>
@@ -70,24 +113,40 @@
           <td>...</td>
           <td>...</td>
         </tr>
-    </table>
-    <h3>Total</h3>
+    </table> -->
+    <div class="container-headers">
+      <p><b>Pending Containers</b></p>
+      <p class="align-end"><b>Tare WT</b></p>
+      <p class="align-end"><b>DISTR</b></p>
+    </div>
+    <div class="container-info">
+      <p>JNL/10-448</p>
+      <p><a href="#">BL144</a></p>
+      <p><a href="#">COC</a></p>
+      <p class="align-end">38538</p>
+      <p class="align-end">49.1%</p>
+    </div>
+    <div class="container-info">
+      <p>JNL/10-448</p>
+      <p><a href="#">BL144</a></p>
+      <p><a href="#">COC</a></p>
+      <p class="align-end">38538</p>
+      <p class="align-end">49.1%</p>
+    </div>
+    <div id="total-row">
+      <p id="total-row-header"><b>Total</b></p>
+      <p id="total-row-wt" class="align-end">71309</p>
+      <p id="total-row-distr" class="align-end">100%</p>
+    </div>
   </section>
   <div class="border-line"></div>
-  <section id="sign-save">
-    <ul>
-      <li><h3>E-sign and Save</h3></li>
-      <li><h3>Save</h3></li>
-    </ul>
+  <section id="hyperlinks">
+    <p class="align-center"><a href="#">Available Containers</a></p>
+    <p class="align-center"><a href="#">Reallocate Containers</a></p>
+    <p class="align-center"><a href="#">Esign & Submit</a></p>
+    <p class="align-center"><a href="#">GRADE A - WWT</a></p>
+    <p class="align-center"><a href="#">Rebalance to New Weights</a></p>
+    <p class="align-center"><a href="#">Print & Sign</a></p>
   </section>
   </body>
 </html>
-
-
-
-
-
-
-
- 
-
