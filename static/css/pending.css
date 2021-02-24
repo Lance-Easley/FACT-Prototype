@@ -1,3 +1,4 @@
+/* Root tag edits */
 :root {
     font-family: Calibri, 'Trebuchet MS', sans-serif;
     font-size: 20px;
@@ -12,14 +13,32 @@ section {
     padding: 0px 25px;
 }
 
+/* Classes used all throughout */
+.align-center {
+    text-align: center;
+}
+
+.align-end {
+    text-align: end;
+}
+
+.text-red {
+    color: red;
+}
+
+.border-line {
+    height: 1px;
+    border-bottom: 5px solid #0044AA;
+    margin-bottom: 10px;
+    margin-left: -1px;
+    width: calc(100% + 2px);
+}
+
+/* 1st box: title and contract info */
 #title {
     padding: 0px 25px;
     color: #0088DD;
     font-style: italic;
-}
-
-#current-containers {
-    margin-bottom: 10px;
 }
 
 #contract-info {
@@ -39,6 +58,11 @@ section {
     margin: -18px 0px;
 }
 
+/* 2nd box: Current Containers */
+#current-containers {
+    margin-bottom: 10px;
+}
+
 .container-headers {
     display: grid;
     grid-template-columns: auto 100px 100px 65px;
@@ -50,6 +74,7 @@ section {
     grid-template-columns: auto 75px 75px 100px 100px 65px;
 }
 
+/* 3rd box: Pending Containers */
 #pending .container-info p {
     color: red;
 }
@@ -79,29 +104,10 @@ section {
     color: red;
 }
 
+/* 4th box: Hyperlinks */
 #hyperlinks {
     display: grid;
     grid-template-columns: auto auto auto;
     gap: 0px 0px;
     margin-bottom: 15px;
-}
-
-.align-center {
-    text-align: center;
-}
-
-.align-end {
-    text-align: end;
-}
-
-.text-red {
-    color: red;
-}
-
-.border-line {
-    height: 1px;
-    border-bottom: 5px solid #0044AA;
-    margin-bottom: 10px;
-    margin-left: -1px;
-    width: calc(100% + 2px);
 }
