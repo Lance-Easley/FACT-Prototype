@@ -15,3 +15,6 @@ class Container(models.Model):
     rating = models.PositiveIntegerField()
     bl_link = models.URLField()
     coc_link = models.URLField()
+
+    def __str__(self):
+        return(self.unit_descriptor)
