@@ -11,24 +11,21 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
   </head>
   <body>
-    <section id="Contract-info">
-      <h1>VAST- Cargo Transfer PENDING</h1>
-      <div id="contract-info-parts"></div>
-      <ul>
-        <li><h3>Contract NO.:</h3></li>
-        <li><h3>Product CO.:</h3></li>
-        <li><h3>Product:</h3></li>
-        <li><h3>Operator:</h3></li>
-        <li><h3>Total Weight:</h3></li>
-        <li><h3>Contract Date:</h3></li>
-        <li><h3>Restrictions:</h3></li>
-    </ul>
+    <h1 id="title">VAST - Cargo Transfer PENDING</h1>
+    <section id="contract-info">
+      <p><b>Contract NO.:</b> AK023479</p>
+      <p><b>Product CO.:</b> Walmart</p>
+      <p><b>Product:</b> Fidget Spinners</p>
+      <p><b>Operator:</b> That guy over there</p>
+      <p><b>Total Weight:</b> 9001</p>
+      <p><b>Contract Date:</b> 7/23/2036</p>
+      <p><b>Restrictions:</b> None</p>
   </section>
   <div class="border-line"></div>
   <section id="current-containers">
     <div id="current-containers-parts">
       <table style="width:90%">
-        <tr>
+        <tr id="curr-headers">
           <th>Current Containers</th>
           <th>Bill of Lading</th>
           <th>Chain of Custody</th>
@@ -74,8 +71,7 @@
           <td>...</td>
         </tr>
     </table>
-<h3>Total</h3>
-    </ul>
+    <h3>Total</h3>
   </section>
   <div class="border-line"></div>
   <section id="sign-save">

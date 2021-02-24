@@ -11,8 +11,24 @@ section {
     padding: 0px 20px;
 }
 
+#title {
+    padding: 0px 20px;
+    color: #0088DD;
+    font-style: italic;
+}
+
 #current-containers {
     margin-bottom: 20px;
+}
+
+#contract-info {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#contract-info p {
+    width: 300px;
 }
 
 .border-line {
