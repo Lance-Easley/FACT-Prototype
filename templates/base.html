@@ -1,4 +1,35 @@
 <!-- Base Template for all pages -->
 
-{% block content %}
-{% endblock content %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href ="{% static 'css/base.css' %}">
+    <title>{% block title %}Base{% endblock title %}</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="navbar-brand" id="brand">
+          <a class="navbar-brand" href="#">VAST</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">CONTRACTS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">QUEUED</a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+  <main>
+        {% block content %}
+        {% endblock content %}  
+    </main>
+</body>
+</html>

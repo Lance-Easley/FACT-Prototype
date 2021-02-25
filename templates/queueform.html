@@ -1,46 +1,56 @@
 <!-- Transfer Form -->
 
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/queueform.css' %}" />    
     <title>Document</title>
 </head>
 <body>
-    {% extends 'base.html' %}
-    {% block title %} Queue Form {% endblock title %}
-    {% block content %}
-    <section id="contract-info">
+  <h1 id="title">QUEUE FORM</h1>
+    <section id="contract-info" class= "border-line">
       <div class="info-field">
         <p><b>Transferring From: </b></p>
-        <p>101 JNL/10-448</p>
-      </div>
-      <div class="info-field">
-        <p><b>Transferred</b></p>
-      </div>
-      <div class="info-field">
-        <p><b>Balance In:</b></p>
-        <p>JNL/10-448</p>
-      </div>
-      <div class="info-field">
-        <p><b>Balance In:</b></p>
-        <p>JNL/10-448</p>
       </div>
       <div class="info-field">
         <p><b>Weight</b></p>
       </div>
       <div class="info-field">
+        <p>101 JNL/10-448</p>
+      </div>
+      <div class="info-field">
         <p>38,539</p>
+      </div>
+      <div class="info-field">
+        <p><b>Transferred</b></p>
       </div>
       <div class="info-field">
         <p>31,539</p>
       </div>
       <div class="info-field">
+        <p><b>Balance In:</b></p>
+      </div>
+      <div class="info-field">
         <p>7,000</p>
       </div>
+      <div class="info-field">
+        <p><b>TRANSFER TO:</b></p>
+      </div>
+      <div class="info-field">
+        <p> </p>
+      </div>
+      <div class="info-field">
+        <p>TRANSFERRED</p>
+      </div>
+      <div class="info-field">
+        <p>31,539</p>
+      </div>
     </section>
+    
    
     <table style="width:100%">
         <tr>
@@ -51,15 +61,223 @@
           <th>Weight</th>
           <th>%</th>
         </tr>
+
         <tr>
           <td>N</td>
-          <td><a href="#">COC</a></td>
-          <td>101</td>
-          <td>JNL/10-448</td>
-          <td>7,000</td>
+          <td><a href="#">BOL</a></td>
+          <td>102</td>
+          <td>JNL/10-419</td>
+          <td> </td>
+        </tr>
+
+        
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>103</td>
+          <td>JNL/10-450</td>
+          <td> </td>
+        </tr>
+        
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>104</td>
+          <td>JNL/10-451</td>
+          <td> </td>
+          <td>0.5</td>
+        </tr>
+
+        
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>105</td>
+          <td>JNL/10-452</td>
+          <td> </td>
+        </tr>
+        
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>106</td>
+          <td>JNL/10-453</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>107</td>
+          <td>JNL/10-454</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>108</td>
+          <td>JNL/10-455</td>
+          <td>3,000</td>
+        </tr>
+        
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>109</td>
+          <td>JNL/10-456</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>111</td>
+          <td>JNL/100-448</td>
+          <td>3,000</td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>112</td>
+          <td>JNL/100-449</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>113</td>
+          <td>JNL/100-450</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>114</td>
+          <td>JNL/100-451</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>115</td>
+          <td>JNL/100-452</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>116</td>
+          <td>JNL/100-453</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>117</td>
+          <td>JNL/100-454</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>118</td>
+          <td>JNL/100-455</td>
+          <td>5,000</td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>119</td>
+          <td>JNL/100-456</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>120</td>
+          <td>JNL/100-457</td>
+          <td> </td>
+        </tr>
+        
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>121</td>
+          <td>JNL/3000-448</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>122</td>
+          <td>JNL/3000-449</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>122</td>
+          <td>JNL/3000-449</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>123</td>
+          <td>JNL/3000-450</td>
+          <td>5,000</td>
+        </tr>
+        
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>124</td>
+          <td>JNL/3000-451</td>
+          <td> </td>
+        </tr>
+        
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>125</td>
+          <td>JNL/3000-452</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>126</td>
+          <td>JNL/3000-453</td>
+          <td>15,539</td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>127</td>
+          <td>JNL/3000-454</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>128</td>
+          <td>JNL/3000-455</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>129</td>
+          <td>JNL/3000-456</td>
+          <td> </td>
+        </tr>
+        
+        <tr>
+          <td>N</td>
+          <td><a href="#">BOL</a></td>
+          <td>130</td>
+          <td>JNL/3000-457</td>
+          <td> </td>
         </tr>
       </table>
-{% endblock content %}   
 </body>
 </html>
 
