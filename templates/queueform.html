@@ -1,0 +1,66 @@
+<!-- Transfer Form -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block title %} Queue Form {% endblock title %}
+    {% block content %}
+    <section id="contract-info">
+      <div class="info-field">
+        <p><b>Transferring From: </b></p>
+        <p>101 JNL/10-448</p>
+      </div>
+      <div class="info-field">
+        <p><b>Transferred</b></p>
+      </div>
+      <div class="info-field">
+        <p><b>Balance In:</b></p>
+        <p>JNL/10-448</p>
+      </div>
+      <div class="info-field">
+        <p><b>Balance In:</b></p>
+        <p>JNL/10-448</p>
+      </div>
+      <div class="info-field">
+        <p><b>Weight</b></p>
+      </div>
+      <div class="info-field">
+        <p>38,539</p>
+      </div>
+      <div class="info-field">
+        <p>31,539</p>
+      </div>
+      <div class="info-field">
+        <p>7,000</p>
+      </div>
+    </section>
+   
+    <table style="width:100%">
+        <tr>
+          <th>Restr</th>
+          <th>BOL</th>
+          <th>REF ID</th>
+          <th>Description</th>
+          <th>Weight</th>
+          <th>%</th>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><a href="#">COC</a></td>
+          <td>101</td>
+          <td>JNL/10-448</td>
+          <td>7,000</td>
+        </tr>
+      </table>
+{% endblock content %}   
+</body>
+</html>
+
+
