@@ -5,8 +5,9 @@
 }
 
 body {
-    margin: 50px 100px;
+    margin: 50px auto;
     border: 5px solid #0044AA;
+    width: 75%;
 }
 
 section {
@@ -65,7 +66,7 @@ section {
 
 .container-headers {
     display: grid;
-    grid-template-columns: auto 100px 100px 65px;
+    grid-template-columns: auto 75px 75px 100px 100px 65px;
 }
 
 .container-info {
@@ -110,4 +111,36 @@ section {
     grid-template-columns: auto auto auto;
     gap: 0px 0px;
     margin-bottom: 15px;
+}
+
+@media(min-width: 1200px) {
+    body {
+        margin: 50px auto;
+        width: 900px;
+    }
+}
+
+@media(max-width: 900px) {
+    body {
+        margin: 50px auto;
+        width: 675px;
+    }
+    
+    #contract-info {
+        grid-template-columns: auto;
+    }
+}
+
+@media(max-width: 675px) {
+    body {
+        width: 100%;
+    }
+
+    .container-info {
+        grid-template-columns: auto auto auto auto auto 65px;
+    }
+
+    .container-headers {
+        grid-template-columns: auto auto auto auto auto 65px;
+    }
 }
