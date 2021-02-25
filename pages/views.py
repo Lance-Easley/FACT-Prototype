@@ -3,4 +3,4 @@ from django.views.generic import TemplateView
 
 # Create your views here.
 class TestTemplateView(TemplateView):
-    template_name = 'pending.html'
+    template_name = 'summary.html'

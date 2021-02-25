@@ -1,63 +1,82 @@
-<!-- Summary Page with no Pending Containers -->
-
+<!-- Summary of Transfers with Pending Changes -->
 
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VAST SUMMARY</title>
+    <link rel="stylesheet" href="{% static 'css/pending.css' %}">
   </head>
   <body>
-    <section id="Contract-info">
-      <h1>VAST- Cargo Transfer SUMMARY</h1>
-      <div id="contract-info-parts"></div>
-      <ul>
-        <div class="row">
-          <div class="column"></div>
-        <li><h3>Contract NO.:</h3></li>
-        <li><h3>Product CO.:</h3></li>
-        <li><h3>Product:</h3></li>
-        <li><h3>Operator:</h3></li>
-        
-        <div class="column"></div>
-
-        <li><h3>Total Weight:</h3></li>
-        <li><h3>Contract Date:</h3></li>
-        <li><h3>Restrictions:</h3></li>
-        </div>
-    </ul>
+    <h1 id="title">VAST - Cargo Transfer SUMMARY</h1>
+    <section id="contract-info">
+      <div class="info-field">
+        <p><b>Contract NO.:</b></p>
+        <p>AK023479</p>
+      </div>
+      <div class="info-field">
+        <p><b>Total Weight:</b></p>
+        <p>9001</p>
+      </div>
+      <div class="info-field">
+        <p><b>Product CO.:</b></p>
+        <p>Walmart</p>
+      </div>
+      <div class="info-field">
+        <p><b>Contract Date:</b></p>
+        <p>7/23/2036</p>
+      </div>
+      <div class="info-field">
+        <p><b>Product:</b></p>
+        <p>Fidget Spinners</p>
+      </div>
+      <div class="info-field">
+        <p><b>Restrictions:</b></p>
+        <p>None</p>
+      </div>
+      <div class="info-field">
+        <p><b>Operator:</b></p>
+        <p>That guy over there</p>
+      </div>
   </section>
-
+  <div class="border-line"></div>
   <section id="current-containers">
     <div id="current-containers-parts">
-      <table style="width:90%">
-        <tr>
-          <th>Current Containers</th>
-          <th>Bill of Lading</th>
-          <th>Chain of Custody</th>
-          <th>Tare Weight</th>
-          <th>Distribution</th>
-          <th>Transfer</th>
-        </tr>
-        <tr>
-          <td>JNL10-448</td>
-          <td><a href="">BL144</a></td>
-          <td><a href="">COC</a></td>
-          <td>38,539</td>
-          <td>49.1%</td>
-          <td><a href="#">T</a></td>
-        </tr>
-      </table>
+      <div class="container-headers">
+        <p><b>Current Containers</b></p>
+        <p class="align-end"><b>Tare WT</b></p>
+        <p class="align-end"><b>DISTR</b></p>
+        <p class="align-center"><b>XFR</b></p>
+      </div>
+      <div class="container-info">
+        <p>JNL/10-448</p>
+        <p><a href="#">BL144</a></p>
+        <p><a href="#">COC</a></p>
+        <p class="align-end">38538</p>
+        <p class="align-end">49.1%</p>
+        <p class="align-center"><a href="#">T</a></p>
+      </div>
+      <div class="container-info">
+        <p>JNL/10-429</p>
+        <p><a href="#">BL154</a></p>
+        <p><a href="#">COC</a></p>
+        <p class="align-end">39878</p>
+        <p class="align-end">50.9%</p>
+        <p class="align-center"><a href="#">T</a></p>
+      </div>
     </div>
   </section>
-  
-  <section id="sign-save">
-    <ul>
-      <li><h3>E-sign and Save</h3></li>
-      <li><h3>Save</h3></li>
-    </ul>
+  <div class="border-line"></div>
+  <section id="hyperlinks">
+    <p class="align-center"><a href="#">Available Containers</a></p>
+    <p class="align-center"><a href="#">Reallocate Containers</a></p>
+    <p class="align-center"><a href="#">Esign & Submit</a></p>
+    <p class="align-center"><a href="#">GRADE A - WWT</a></p>
+    <p class="align-center"><a href="#">Rebalance to New Weights</a></p>
+    <p class="align-center"><a href="#">Print & Sign</a></p>
   </section>
   </body>
 </html>
