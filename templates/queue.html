@@ -5,44 +5,24 @@
 
 {% block content %}
 <div id="__home">
-  <h1 id="title">QUEUE</h1>
-  <table style="width: 70%">
-    <tr>
-      <th>Company code</th>
-      <th>Contract Number</th>
-      <th>Operator</th>
-      <th>Date</th>
-      <th>View Pending Transfers</th>
-    </tr>
-    
-    <tr>
-      <td>PDT</td>
-      <td>A125K348</td>
-      <td>LOVELEEN A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-    <tr>
-      <td>BRC</td>
-      <td>A125K375</td>
-      <td>LANCE A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-    <tr>
-      <td>JNL</td>
-      <td>A125K348</td>
-      <td>JOHN A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-    <tr>
-      <td>AXM</td>
-      <td>J175L388</td>
-      <td>KENIA A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-  </table>
-</div>
+
+    <h1 id="title">VAST</h1>
+    <table class="table table-hover" style="width: 70%">
+      <tr>
+        <th scope="col">Company code</th>
+        <th scope="col">Contract Number</th>
+        <th scope="col">Operator</th>
+        <th scope="col">Date</th>
+        <th scope="col">View Summary</th>
+      </tr>
+      {% for contract in contracts %}
+      <tr >
+        <td scope="row">{{ contract.company_code }}</td>
+        <td scope="row">{{ contract.contract_number }}</td>
+        <td scope="row">{{ contract.operator }}</td>
+        <td scope="row">{{ contract.contract_date }}</td>
+        <td scope="row"><a href="{% url 'contract_detail' contract.id %}">SELECT</a></td>
+      </tr>
+      {% endfor %}
 {% endblock content %}
+

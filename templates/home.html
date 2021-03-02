@@ -9,19 +9,19 @@
     <h1 id="title">FACT</h1>
     <table style="width: 70%">
       <tr>
-        <th>Company code</th>
-        <th>Contract Number</th>
-        <th>Operator</th>
-        <th>Date</th>
-        <th>View Summary</th>
+        <th scope="col">Company code</th>
+        <th scope="col">Contract Number</th>
+        <th scope="col">Operator</th>
+        <th scope="col">Date</th>
+        <th scope="col">View Summary</th>
       </tr>
       {% for contract in contracts %}
-      <tr style="background-color: skyblue">
-        <td>{{ contract.company_code }}</td>
-        <td>{{ contract.contract_number }}</td>
-        <td>{{ contract.operator }}</td>
-        <td>{{ contract.contract_date }}</td>
-        <td><a href="{% url 'contract_detail' contract.id %}">SELECT</a></td>
+      <tr >
+        <td scope="row">{{ contract.company_code }}</td>
+        <td scope="row">{{ contract.contract_number }}</td>
+        <td scope="row">{{ contract.operator }}</td>
+        <td scope="row">{{ contract.contract_date }}</td>
+        <td scope="row"><a href="{% url 'contract_detail' contract.id %}">SELECT</a></td>
       </tr>
       {% endfor %}
 {% endblock content %}
