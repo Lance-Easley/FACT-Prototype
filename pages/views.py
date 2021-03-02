@@ -17,6 +17,15 @@ class ContractsListView(ListView):
     context_object_name = "contracts"
     template_name = 'home.html'
 
+class QueueForm(Form):
+    def __init__(self, contract, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        containers = Container.objects.filter(
+            company_code=contract.company_code
+        ) 
+        for container in containers:
+            self.fields[container.code] = forms.IntegerField(required=False)
+
 class ContractUpdateView(UpdateView):
     # create view based off of the form
     template_name = "queueform.html"
