@@ -5,99 +5,24 @@
 
 {% block content %}
 <div id="__home">
-<h1 id="title">VAST</h1>
-  <table style="width: 70%">
-    <tr>
-      <th>Company code</th>
-      <th>Contract Number</th>
-      <th>Operator</th>
-      <th>Date</th>
-      <th>View Summary</th>
-    </tr>
-    <tr>
-      <td>PDT</td>
-      <td>A125K348</td>
-      <td>LOVELEEN A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-    <tr>
-      <td>BRC</td>
-      <td>A125K375</td>
-      <td>LANCE A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-    <tr>
-    <td>JNL</td>
-      <td>A125K348</td>
-      <td>JOHN A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-    <tr>
-    <td>AXM</td>
-      <td>J175L388</td>
-      <td>KENIA A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-    <tr>
-      <td>PDT</td>
-      <td>A125K348</td>
-      <td>LOVELEEN A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-    <tr>
-      <td>BRC</td>
-      <td>A125K375</td>
-      <td>LANCE A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-    <tr>
-    <td>JNL</td>
-      <td>A125K348</td>
-      <td>JOHN A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-    <tr>
-    <td>AXM</td>
-      <td>J175L388</td>
-      <td>KENIA A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-    <tr>
-      <td>PDT</td>
-      <td>A125K348</td>
-      <td>LOVELEEN A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-    <tr>
-      <td>BRC</td>
-      <td>A125K375</td>
-      <td>LANCE A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-    <tr>
-    <td>JNL</td>
-      <td>A125K348</td>
-      <td>JOHN A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-    <tr>
-    <td>AXM</td>
-      <td>J175L388</td>
-      <td>KENIA A OPERATOR</td>
-      <td>2/24/2021</td>
-      <td><a href="">SELECT</a></td>
-    </tr>
-  </table>
-</div>
+
+    <h1 id="title">VAST</h1>
+    <table style="width: 70%">
+      <tr>
+        <th>Company code</th>
+        <th>Contract Number</th>
+        <th>Operator</th>
+        <th>Date</th>
+        <th>View Summary</th>
+      </tr>
+      {% for contract in contracts %}
+      <tr style="background-color: skyblue">
+        <td>{{ contract.company_code }}</td>
+        <td>{{ contract.contract_number }}</td>
+        <td>{{ contract.operator }}</td>
+        <td>{{ contract.contract_date }}</td>
+        <td><a href="{% url 'contract_detail' contract.id %}">SELECT</a></td>
+      </tr>
+      {% endfor %}
 {% endblock content %}
+

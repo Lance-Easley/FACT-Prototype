@@ -10,33 +10,38 @@
   <section id="contract-info">
     <div class="info-field">
       <p><b>Contract NO.:</b></p>
-      <p>AK023479</p>
+      <p>{{ contract.contract_number }}</p>
     </div>
     <div class="info-field">
       <p><b>Total Weight:</b></p>
-      <p>9001</p>
+      <p>{{ contract.total_weight }}</p>
     </div>
     <div class="info-field">
       <p><b>Product CO.:</b></p>
-      <p>Walmart</p>
+      <p>{{ contract.company_code }}</p>
     </div>
     <div class="info-field">
       <p><b>Contract Date:</b></p>
-      <p>7/23/2036</p>
+      <p>{{ contract.contract_date }}</p>
     </div>
     <div class="info-field">
       <p><b>Product:</b></p>
-      <p>Fidget Spinners</p>
+      <p>{{ contract.product }}</p>
     </div>
     <div class="info-field">
       <p><b>Restrictions:</b></p>
-      <p>None</p>
+      <p>{{contract.restrictions}}</p>
     </div>
     <div class="info-field">
       <p><b>Operator:</b></p>
-      <p>That guy over there</p>
+      <p>{{ contract.operator }}</p>
     </div>
   </section>
+
+
+
+
+  
   <div class="border-line"></div>
   <section id="current-containers">
     <div id="current-containers-parts">
