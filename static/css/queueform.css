@@ -4,8 +4,6 @@
     font-size: 20px;
 }
 
-
-
 body {
     margin: 50px 50px;
 }
@@ -21,10 +19,6 @@ section {
 .align-end {
     text-align: end;
 }
-
-
-
-
 
 /* 1st box: title and contract info */
 #title {
@@ -49,7 +43,6 @@ section {
     display: grid;
     grid-template-columns: 125px 100px;
     margin: -18px 0px;
-
 }
 
 table, th, td {

@@ -1,16 +1,11 @@
 <!-- Summary of Transfers with Pending Changes -->
 
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VAST SUMMARY</title>
-    <link rel="stylesheet" href="{% static 'css/pending.css' %}">
-  </head>
-  <body>
+{% extends 'base.html' %}
+
+{% block title %}FACT Pending{% endblock title %}
+
+{% block content %}
+  <div id="__pending">
     <h1 id="title">VAST - Cargo Transfer SUMMARY</h1>
     <section id="contract-info">
       <div class="info-field">
@@ -78,5 +73,5 @@
     <p class="align-center"><a href="#">Rebalance to New Weights</a></p>
     <p class="align-center"><a href="#">Print & Sign</a></p>
   </section>
-  </body>
-</html>
+</div>
+{% endblock content %}

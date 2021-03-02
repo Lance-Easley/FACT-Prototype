@@ -1,46 +1,41 @@
 <!-- Summary of Transfers with Pending Changes -->
 
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VAST Pending</title>
-    <link rel="stylesheet" href="{% static 'css/pending.css' %}">
-  </head>
-  <body>
-    <h1 id="title">VAST - Cargo Transfer PENDING</h1>
-    <section id="contract-info">
-      <div class="info-field">
-        <p><b>Contract NO.:</b></p>
-        <p>AK023479</p>
-      </div>
-      <div class="info-field">
-        <p><b>Total Weight:</b></p>
-        <p>9001</p>
-      </div>
-      <div class="info-field">
-        <p><b>Product CO.:</b></p>
-        <p>Walmart</p>
-      </div>
-      <div class="info-field">
-        <p><b>Contract Date:</b></p>
-        <p>7/23/2036</p>
-      </div>
-      <div class="info-field">
-        <p><b>Product:</b></p>
-        <p>Fidget Spinners</p>
-      </div>
-      <div class="info-field">
-        <p><b>Restrictions:</b></p>
-        <p>None</p>
-      </div>
-      <div class="info-field">
-        <p><b>Operator:</b></p>
-        <p>That guy over there</p>
-      </div>
+{% extends 'base.html' %}
+
+{% block title %}FACT Pending{% endblock title %}
+
+{% block content %}
+<div id="__pending">
+  <h1 id="title">VAST - Cargo Transfer PENDING</h1>
+  <section id="contract-info">
+    <div class="info-field">
+      <p><b>Contract NO.:</b></p>
+      <p>AK023479</p>
+    </div>
+    <div class="info-field">
+      <p><b>Total Weight:</b></p>
+      <p>9001</p>
+    </div>
+    <div class="info-field">
+      <p><b>Product CO.:</b></p>
+      <p>Walmart</p>
+    </div>
+    <div class="info-field">
+      <p><b>Contract Date:</b></p>
+      <p>7/23/2036</p>
+    </div>
+    <div class="info-field">
+      <p><b>Product:</b></p>
+      <p>Fidget Spinners</p>
+    </div>
+    <div class="info-field">
+      <p><b>Restrictions:</b></p>
+      <p>None</p>
+    </div>
+    <div class="info-field">
+      <p><b>Operator:</b></p>
+      <p>That guy over there</p>
+    </div>
   </section>
   <div class="border-line"></div>
   <section id="current-containers">
@@ -59,7 +54,7 @@
         <p><a href="#">COC</a></p>
         <p class="align-end">38538</p>
         <p class="align-end">49.1%</p>
-        <p class="align-center"><a href="#">T</a></p>
+        <p class="align-center"><a href="#">Edit</a></p>
       </div>
       <div class="container-info">
         <p>JNL/10-429</p>
@@ -67,7 +62,7 @@
         <p><a href="#">COC</a></p>
         <p class="align-end">39878</p>
         <p class="align-end">50.9%</p>
-        <p class="align-center"><a href="#">T</a></p>
+        <p class="align-center"><a href="#">Edit</a></p>
       </div>
     </div>
   </section>
@@ -107,5 +102,5 @@
     <p class="align-center"><a href="#">Rebalance to New Weights</a></p>
     <p class="align-center"><a href="#">Print & Sign</a></p>
   </section>
-  </body>
-</html>
+</div>
+{% endblock content %}

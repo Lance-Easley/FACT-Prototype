@@ -1,62 +1,47 @@
 <!-- Initial Page with Company Contracts Listed -->
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
-    <title>QUEUE</title>
-  </head>
-  <body>
-    <!-- {% block content %} -->
-    <h1 id="title">QUEUE</h1>
-    <h1 id="title"></h1>
-    <table style="width: 70%">
-      <tr>
-        <th>Company code</th>
-        <th>Contract Number</th>
-        <th>Operator</th>
-        <th>Date</th>
-        <th>View Pending Transfers</th>
-      </tr>
-      <tr>
-        <td>PDT</td>
-        <td>A125K348</td>
-        <td>LOVELEEN A OPERATOR</td>
-        <td>2/24/2021</td>
-        <td><a href="">SELECT</a></td>
-      </tr>
-      <tr>
-        <td>BRC</td>
-        <td>A125K375</td>
-        <td>LANCE A OPERATOR</td>
-        <td>2/24/2021</td>
-        <td><a href="">SELECT</a></td>
-      </tr>
-      <tr>
-        <td>JNL</td>
-        <td>A125K348</td>
-        <td>JOHN A OPERATOR</td>
-        <td>2/24/2021</td>
-        <td><a href="">SELECT</a></td>
-      </tr>
-      <tr>
-        <td>AXM</td>
-        <td>J175L388</td>
-        <td>KENIA A OPERATOR</td>
-        <td>2/24/2021</td>
-        <td><a href="">SELECT</a></td>
-      </tr>
-    </table>
-    <!-- {% for contract in object_list %}
-        <td>{{contract.company_code }}</td>
-        <td>{{contract.contract_number}}</td>
-        <td>{{contract.operator }}</td>
-        <td>{{contract.contract_date}}</td>
-      </tr> -->
-    <!-- {% endfor %}
-     {% endblock content %} -->
-  </body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}FACT Pending{% endblock title %}
+
+{% block content %}
+<div id="__home">
+  <h1 id="title">QUEUE</h1>
+  <table style="width: 70%">
+    <tr>
+      <th>Company code</th>
+      <th>Contract Number</th>
+      <th>Operator</th>
+      <th>Date</th>
+      <th>View Pending Transfers</th>
+    </tr>
+    <tr>
+      <td>PDT</td>
+      <td>A125K348</td>
+      <td>LOVELEEN A OPERATOR</td>
+      <td>2/24/2021</td>
+      <td><a href="">SELECT</a></td>
+    </tr>
+    <tr>
+      <td>BRC</td>
+      <td>A125K375</td>
+      <td>LANCE A OPERATOR</td>
+      <td>2/24/2021</td>
+      <td><a href="">SELECT</a></td>
+    </tr>
+    <tr>
+      <td>JNL</td>
+      <td>A125K348</td>
+      <td>JOHN A OPERATOR</td>
+      <td>2/24/2021</td>
+      <td><a href="">SELECT</a></td>
+    </tr>
+    <tr>
+      <td>AXM</td>
+      <td>J175L388</td>
+      <td>KENIA A OPERATOR</td>
+      <td>2/24/2021</td>
+      <td><a href="">SELECT</a></td>
+    </tr>
+  </table>
+</div>
+{% endblock content %}

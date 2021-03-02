@@ -7,11 +7,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block css %}<link rel="stylesheet" href ="{% static 'css/base.css' %}">{% endblock css %}
+    <link rel="stylesheet" href ="{% block css %}{% static 'css/base.css' %}{% endblock css %}">
     <title>{% block title %}Base{% endblock title %}</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav id="__navbar" class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="navbar-brand" id="brand">
