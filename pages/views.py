@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import get_list_or_404, redirect
 from django.views.generic import TemplateView, UpdateView, DetailView, ListView
 from containers.models import Container
 from contracts.models import Contract
 from queued.models import QueuedContract
+from queued.forms import QueuedContainerForm
 
 # Create your views here.
 class TestTemplateView(TemplateView):
@@ -21,17 +22,38 @@ class ContractUpdateView(UpdateView):
     # create view based off of the form
     template_name = "queueform.html"
     model = Contract
+    form_class = QueuedContainerForm
 
-    def get_form(self):
-        return QueueForm(self.get_object())
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["contract"] = kwargs.pop("instance")
+        kwargs["from_container"] = self.request.resolver_match.kwargs["container"]
+        return kwargs
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['company_containers'] = Container.objects.filter(
-            company_code=context['contract'].company_code
-        )
+        company = self.get_object()
+        context["from_container"] = get_list_or_404(
+            Container,
+            unit_descriptor=self.request.resolver_match.kwargs["container"],
+            company_code=company.company_code,
+        )[0]
         return context
-    
+
+    def form_valid(self, form):
+        new_json = [
+            {"container": c, "weight": w}
+            for c, w in form.cleaned_data.items()
+            if w is not None
+        ]
+        contract = self.get_object()
+        if contract.queuedcontract_set.exists():
+            contract.queuedcontract_set.update(pend_containers=new_json)
+        else:
+            contract.queuedcontract_set.create(pend_containers=new_json)
+        return redirect("contract_detail", contract.id)
+
+
 class ContractPendingDetailView(DetailView):
     model = Contract
     template_name = 'pending.html'
