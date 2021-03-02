@@ -57,7 +57,7 @@
           <p class="align-end">9001%</p>
           <p class="align-center">
             <a
-              href="{% url 'queue' contract.id %}?container={{ container.container|urlencode }}"
+              href="{% url 'queue' contract.id container.container %}"
               >T</a
             >
           </p>

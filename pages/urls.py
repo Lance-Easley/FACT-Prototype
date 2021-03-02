@@ -4,5 +4,9 @@ from .views import TestTemplateView, ContractsListView, ContractDetailView, Cont
 urlpatterns = [
     path('', ContractsListView.as_view(), name='test'),
     path("contract/<int:pk>/", ContractDetailView.as_view(), name="contract_detail"),
-    path("contract/<int:pk>/queue", ContractUpdateView.as_view(), name="queue")
+    path(
+        "contract/<int:pk>/queue/<container>",
+        ContractUpdateView.as_view(),
+        name="queue",
+    ),
 ]
