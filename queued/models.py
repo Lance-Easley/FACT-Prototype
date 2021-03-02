@@ -7,3 +7,10 @@ class QueuedContract(models.Model):
         on_delete=models.CASCADE
         )
     pend_containers = models.JSONField()
+    def clean(self):
+        if sum(self.pend_containers) != self.contract.total_weight
+         raise ValidationError(
+                {
+                    "pend_containers": "Weight must equal total weight."
+                }
+            )
