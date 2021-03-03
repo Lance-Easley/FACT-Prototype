@@ -11,7 +11,7 @@ class TestTemplateView(TemplateView):
 
 class ContainerListView(ListView):
     model = Container
-    template_name = 'home.html'
+    template_name = 'containers.html'
 
 class ContractsListView(ListView):
     model = Contract
@@ -77,5 +77,3 @@ class ContractDetailView(DetailView):
     template_name = 'summary.html'
 
 
-
-    

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import TestTemplateView, ContractsListView, ContractDetailView, ContractUpdateView, ContractPendingDetailView
+from .views import TestTemplateView, ContractsListView, ContractDetailView, ContractUpdateView, ContractPendingDetailView, ContainerListView
 
 urlpatterns = [
     path('', ContractsListView.as_view(), name='test'),
@@ -10,4 +10,5 @@ urlpatterns = [
         name="queue",
     ),
     path("contract/<int:pk>/", ContractPendingDetailView.as_view(), name="pending_detail"),
+    path("containers/", ContainerListView.as_view(), name="containers")
 ]

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}All containers{% endblock title %}
+
+{% block content %}
+<h1>All Containers</h1>
+<table style="width: 70%">
+      <tr>
+        <th scope="col">Company code</th>
+        <th scope="col">Unit Descriptor</th>
+        <th scope="col">Unit Code</th>
+        <th scope="col">Restriction Code</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Bill of Lading</th>
+        <th scope="col">Chain of Custody</th>
+      </tr>
+      {% for container in object_list %}
+      <tr >
+        <td scope="row">{{container.company_code }}</td>
+        <td scope="row">{{ container.unit_descriptor }}</td>
+        <td scope="row">{{ container.unit_code }}</td>
+        <td scope="row">{{ container.restrict_code }}</td>
+        <td scope="row">{{container.rating}}</td>
+        <td scope="row"><a href="">{{ container.bl_link}}</a></td>
+        <td scope="row"><a href="">{{container.coc_link}}</a></td>
+
+      </tr>
+      {% endfor %}
+{% endblock content %}
