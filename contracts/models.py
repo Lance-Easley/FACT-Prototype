@@ -11,6 +11,7 @@ class Contract(models.Model):
     contract_date = models.DateField()
     restrictions = models.CharField(max_length=20)
     curr_containers = models.JSONField()
+    pend_containers = models.JSONField(null=True)
 
     def __str__(self):
         return(self.company_code)
