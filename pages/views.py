@@ -2,6 +2,7 @@ from django.shortcuts import get_list_or_404, redirect
 from django.views.generic import TemplateView, UpdateView, DetailView, ListView
 from containers.models import Container
 from contracts.models import Contract
+from urllib.parse import unquote
 from contracts.forms import QueuedContainerForm
 
 # Create your views here.
@@ -36,7 +37,7 @@ class ContractUpdateView(UpdateView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs["contract"] = kwargs.pop("instance")
-        kwargs["from_container"] = self.request.resolver_match.kwargs["container"]
+        kwargs["from_container"] = unquote(self.request.resolver_match.kwargs["container"])
         return kwargs
 
     # getting the context data/ fields from specific container
@@ -45,7 +46,7 @@ class ContractUpdateView(UpdateView):
         company = self.get_object()
         context["from_container"] = get_list_or_404(
             Container,
-            unit_descriptor=self.request.resolver_match.kwargs["container"],
+            unit_descriptor=unquote(self.request.resolver_match.kwargs["container"]),
             company_code=company.company_code,
         )[0]
         return context
