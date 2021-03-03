@@ -5,9 +5,12 @@
 {% block title %}FACT Pending{% endblock title %}
 
 {% block content %}
+
+<!-- contract information -->
 <div id="__pending">
   <h1 id="title">FACT - Cargo Transfer PENDING</h1>
   <section id="contract-info">
+    <h2 id="sub-title">Current Containers</h2>
     <div class="info-field">
       <p><b>Contract NO.:</b></p>
       <p>{{ contract.contract_number }}</p>
@@ -39,65 +42,71 @@
   </section>
 
 
-
-
+<!--Current Containers -->
   
-  <div class="border-line"></div>
-  <section id="current-containers">
-    <div id="current-containers-parts">
-      <div class="container-headers">
-        <p><b>Current Containers</b></p>
-        <p></p>
-        <p></p>
-        <p class="align-end"><b>Tare WT</b></p>
-        <p class="align-end"><b>DISTR</b></p>
-        <p class="align-center"><b>XFR</b></p>
-      </div>
-      <div class="container-info">
-        <p>JNL/10-448</p>
-        <p><a href="#">BL144</a></p>
-        <p><a href="#">COC</a></p>
-        <p class="align-end">38538</p>
-        <p class="align-end">49.1%</p>
-        <p class="align-center"><a href="#">Edit</a></p>
-      </div>
-      <div class="container-info">
-        <p>JNL/10-429</p>
-        <p><a href="#">BL154</a></p>
-        <p><a href="#">COC</a></p>
-        <p class="align-end">39878</p>
-        <p class="align-end">50.9%</p>
-        <p class="align-center"><a href="#">Edit</a></p>
-      </div>
+<section id="current-containers">
+  <div id="current-containers-parts">
+    <div class="container-headers">
+      <p><b>Current Containers</b></p>
+      <p></p>
+      <p></p>
+      <p class="align-end"><b>Tare WT</b></p>
+      <p class="align-end"><b>DISTR</b></p>
+      <p class="align-center"><b>XFR</b></p>
     </div>
-  </section>
-  <div class="border-line"></div>
+    {% for container in contract.curr_containers %}
+    <div class="container-info" style="background-color: skyblue">
+      <p>{{ container.container }}</p>
+      <p><a href="#">BL144</a></p>
+      <p><a href="#">COC</a></p>
+      <p class="align-end">{{ container.weight }}</p>
+      <p class="align-end">9001%</p>
+      <p class="align-center">
+        <a
+          href="{% url 'queue' contract.id container.container %}"
+          >T</a
+        >
+      </p>
+    </div>
+    {% endfor %}
+    <!-- <pre>{{ contract.curr_containers }}</pre> -->
+</div>
+</section>
+
+  <!-- Pending Containers -->
   <section id="pending">
     <div class="container-headers">
       <p><b>Pending Containers</b></p>
-      <p class="align-end"><b>Tare WT</b></p>
-      <p class="align-end"><b>DISTR</b></p>
-    </div>
-    <div class="container-info">
-      <p>JNL/10-448</p>
-      <p><a href="#">BL144</a></p>
-      <p><a href="#">COC</a></p>
-      <p class="align-end">38538</p>
-      <p class="align-end">49.1%</p>
-    </div>
-    <div class="container-info">
-      <p>JNL/10-448</p>
-      <p><a href="#">BL144</a></p>
-      <p><a href="#">COC</a></p>
-      <p class="align-end">38538</p>
-      <p class="align-end">49.1%</p>
-    </div>
-    <div id="total-row">
-      <p id="total-row-header"><b>Total</b></p>
-      <p id="total-row-wt" class="align-end">71309</p>
-      <p id="total-row-distr" class="align-end">100%</p>
-    </div>
-  </section>
+      <section id="pending-containers">
+        <div id="pending-containers-parts">
+          <div class="container-headers">
+            <p><b>Pending Containers</b></p>
+            <p></p>
+            <p></p>
+            <p class="align-end"><b>Tare WT</b></p>
+            <p class="align-end"><b>DISTR</b></p>
+            <p class="align-center"><b>XFR</b></p>
+          </div>
+          {% for container in contract.pend_containers %}
+          <div class="container-info" style="background-color: skyblue">
+            <p>{{ container.container }}</p>
+            <p><a href="#">BL144</a></p>
+            <p><a href="#">COC</a></p>
+            <p class="align-end">{{ container.weight }}</p>
+            <p class="align-end">9001%</p>
+            <p class="align-center">
+              <a
+                href="{% url 'queue' contract.id container.container %}"
+                >T</a
+              >
+            </p>
+          </div>
+          {% endfor %}
+          <!-- <pre>{{ contract.curr_containers }}</pre> -->
+      </div>
+    </section>
+
+    <!-- bottom links -->
   <div class="border-line"></div>
   <section id="hyperlinks">
     <p class="align-center"><a href="#">Available Containers</a></p>
@@ -107,5 +116,8 @@
     <p class="align-center"><a href="#">Rebalance to New Weights</a></p>
     <p class="align-center"><a href="#">Print & Sign</a></p>
   </section>
+
+
+
 </div>
 {% endblock content %}
