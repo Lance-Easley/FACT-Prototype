@@ -2,8 +2,7 @@ from django.shortcuts import get_list_or_404, redirect
 from django.views.generic import TemplateView, UpdateView, DetailView, ListView
 from containers.models import Container
 from contracts.models import Contract
-from queued.models import QueuedContract
-from queued.forms import QueuedContainerForm
+from contracts.forms import QueuedContainerForm
 
 # Create your views here.
 class TestTemplateView(TemplateView):
@@ -59,20 +58,19 @@ class ContractUpdateView(UpdateView):
             if w is not None
         ]
         contract = self.get_object()
-        if contract.queuedcontract_set.exists():
-            contract.queuedcontract_set.update(pend_containers=new_json)
-        else:
-            contract.queuedcontract_set.create(pend_containers=new_json)
-        return redirect("contract_detail", contract.id)
+        contract.pend_containers = new_json
+        contract.save()
+        return redirect("pending_detail", contract.id)
 
 
 class ContractPendingDetailView(DetailView):
     model = Contract
     template_name = 'pending.html'
 
-class ContractPendingListView(ListView):
-    model = QueuedContract
-    template_name = 'queue.html'
+# class ContractPendingListView(ListView):
+#     model = QueuedContract
+#     template_name = 'queue.html'
+
 class ContractDetailView(DetailView):
     model = Contract
     template_name = 'summary.html'
