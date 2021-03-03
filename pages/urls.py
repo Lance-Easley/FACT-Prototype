@@ -9,6 +9,6 @@ urlpatterns = [
         ContractUpdateView.as_view(),
         name="queue",
     ),
-    path("contract/<int:pk>/", ContractPendingDetailView.as_view(), name="pending_detail"),
-    path("containers/", ContainerListView.as_view(), name="containers")
+    path("containers/", ContainerListView.as_view(), name="containers"),
+    path("contract/<int:pk>/pending", ContractPendingDetailView.as_view(), name="pending"),
 ]

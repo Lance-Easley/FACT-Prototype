@@ -55,7 +55,7 @@
       <p class="align-center"><b>XFR</b></p>
     </div>
     {% for container in contract.curr_containers %}
-    <div class="container-info" style="background-color: skyblue">
+    <div class="container-info">
       <p>{{ container.container }}</p>
       <p><a href="#">BL144</a></p>
       <p><a href="#">COC</a></p>
@@ -74,10 +74,8 @@
 </section>
 
   <!-- Pending Containers -->
-  <section id="pending">
-    <div class="container-headers">
-      <p><b>Pending Containers</b></p>
-      <section id="pending-containers">
+
+      <section id="pending-containers" class="text-red">
         <div id="pending-containers-parts">
           <div class="container-headers">
             <p><b>Pending Containers</b></p>
@@ -88,7 +86,7 @@
             <p class="align-center"><b>XFR</b></p>
           </div>
           {% for container in contract.pend_containers %}
-          <div class="container-info" style="background-color: skyblue">
+          <div class="container-info">
             <p>{{ container.container }}</p>
             <p><a href="#">BL144</a></p>
             <p><a href="#">COC</a></p>
