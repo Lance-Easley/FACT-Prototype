@@ -10,6 +10,10 @@ class QueuedContainerForm(forms.Form):
         container_weights = {
             c["container"]: c["weight"] for c in contract.curr_containers
         }
+        container_weights.update({
+            c["container"]: c["weight"] for c in contract.pend_containers
+        })
+        print(repr(container_weights))
         self.from_container_weight = int(container_weights[from_container])
         for c in Container.objects.filter(company_code=contract.company_code):
             self.fields[c.unit_descriptor] = forms.IntegerField(
