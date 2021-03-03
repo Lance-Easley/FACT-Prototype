@@ -49,12 +49,12 @@
           <p class="align-center"><b>XFR</b></p>
         </div>
         {% for container in contract.curr_containers %}
-        <div class="container-info" style="background-color: skyblue">
+        <div class="container-info" >
           <p>{{ container.container }}</p>
           <p><a href="#">BL144</a></p>
           <p><a href="#">COC</a></p>
           <p class="align-end">{{ container.weight }}</p>
-          <p class="align-end">9001%</p>
+          <p class="align-end">100%</p>
           <p class="align-center">
             <a
               href="{% url 'queue' contract.id container.container|urlencode:"" %}"
