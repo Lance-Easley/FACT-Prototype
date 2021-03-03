@@ -33,12 +33,14 @@ class ContractUpdateView(UpdateView):
     model = Contract
     form_class = QueuedContainerForm
 
+    # getting container assigned to specific contract
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs["contract"] = kwargs.pop("instance")
         kwargs["from_container"] = self.request.resolver_match.kwargs["container"]
         return kwargs
 
+    # getting the context data/ fields from specific container
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         company = self.get_object()
@@ -49,6 +51,7 @@ class ContractUpdateView(UpdateView):
         )[0]
         return context
 
+    # makes a new json with inserted information and adding it on (editing and saving)
     def form_valid(self, form):
         new_json = [
             {"container": c, "weight": w}
