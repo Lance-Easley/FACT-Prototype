@@ -18,6 +18,11 @@ class ContractsListView(ListView):
     context_object_name = "contracts"
     template_name = 'home.html'
 
+class QueuedContractsListView(ListView):
+    model = Contract
+    context_object_name = "contracts"
+    template_name = 'queue.html'
+
 
 class ContractUpdateView(UpdateView):
     # create view based off of the form
