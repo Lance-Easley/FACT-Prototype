@@ -7,6 +7,7 @@ class QueuedContainerForm(forms.Form):
     def __init__(self, contract, from_container, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.contract = contract
+        self.from_container = from_container
         container_weights = {
             c["container"]: c["weight"] for c in contract.curr_containers
         }
@@ -35,7 +36,7 @@ class QueuedContainerForm(forms.Form):
         print(cleaned_data)
         print(repr(pending_weight_total))
         print(repr(self.from_container_weight))
-        if pending_weight_total != self.from_container_weight:
+        if pending_weight_total > self.contract.total_weight:
             print("BAD WEIGHTs")
             raise ValidationError(
                 "Container weights must total to the contract's total weight."
