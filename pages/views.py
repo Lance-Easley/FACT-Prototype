@@ -22,12 +22,12 @@ def render_to_pdf(template_src, context_dict={}):
 #Opens up page as PDF
 class ViewPDF(View):
 	def get(self, request, pk, *args, **kwargs):
-		pdf = render_to_pdf('pdf_summary.html', {"contract": Contract.objects.get(pk=pk)})
+		pdf = render_to_pdf('pdf_pending.html', {"contract": Contract.objects.get(pk=pk)})
 		return HttpResponse(pdf, content_type='application/pdf')
 #Automaticly downloads to PDF file
 class DownloadPDF(View):
 	def get(self, request, *args, **kwargs):
-		pdf = render_to_pdf('pdf_summary.html')
+		pdf = render_to_pdf('pdf_pending.html')
 		response = HttpResponse(pdf, content_type='application/pdf')
 		filename = "Invoice_%s.pdf" %("12341231")
 		content = "attachment; filename='%s'" %(filename)

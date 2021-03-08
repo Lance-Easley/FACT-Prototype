@@ -1,0 +1,185 @@
+<!-- Summary of Transfers with Pending Changes -->
+<style>
+  * {
+    font-size: 15px;
+  }
+  #__pending {
+    margin: 50px auto;
+    width: 75%;
+  }
+
+  #__pending section {
+    padding: 0px 25px;
+  }
+
+  /* Classes used all throughout */
+  #__pending .align-center {
+    text-align: center;
+  }
+
+  #__pending .align-end {
+    text-align: end;
+  }
+
+  #__pending .text-red {
+    color: red;
+  }
+
+  #__pending .border-line {
+    height: 1px;
+    border-bottom: 5px solid #0044aa;
+    margin-bottom: 10px;
+    margin-left: -1px;
+  }
+
+  /* 1st box: title and contract info */
+  #__pending #title {
+    padding: 0px 25px;
+    color: #0088dd;
+    font-style: italic;
+  }
+
+  #__pending #contract-info {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0px 125px;
+    margin-bottom: 15px;
+  }
+
+  #__pending #contract-info p {
+    width: 200px;
+  }
+
+  #__pending .info-field {
+    display: grid;
+    grid-template-columns: 150px 100px;
+    margin: -18px 0px;
+  }
+
+  /* 2nd box: Current Containers */
+  #__pending #current-containers {
+    margin-bottom: 10px;
+  }
+
+  #__pending .container-headers {
+    display: grid;
+    grid-template-columns: auto 75px 75px 100px 100px 65px;
+  }
+
+  #__pending .container-info {
+    margin: -30px 0px 0px;
+    display: grid;
+    grid-template-columns: auto 75px 75px 100px 100px 65px;
+  }
+
+  /* 3rd box: Pending Containers */
+  #__pending #pending .container-info p {
+    color: red;
+  }
+
+  #__pending #pending .container-info a {
+    color: red;
+  }
+
+  #__pending #total-row {
+    margin: -30px 0px 0px;
+    display: grid;
+    grid-template-columns: auto 75px 75px 100px 100px 65px;
+    grid-column-start: 2;
+  }
+  #sign{
+    color: black;
+  }
+</style>
+
+<div id="__pending">
+  <h1 id="title">FACT - Cargo Transfer SUMMARY</h1>
+  <section id="contract-info">
+    <div class="info-field">
+      <p><b>Contract NO.:</b></p>
+      <p>{{ contract.contract_number }}</p>
+    </div>
+    <div class="info-field">
+      <p><b>Total Weight:</b></p>
+      <p>{{ contract.total_weight }}</p>
+    </div>
+    <div class="info-field">
+      <p><b>Product CO.:</b></p>
+      <p>{{ contract.company_code }}</p>
+    </div>
+    <div class="info-field">
+      <p><b>Contract Date:</b></p>
+      <p>{{ contract.contract_date }}</p>
+    </div>
+    <div class="info-field">
+      <p><b>Product:</b></p>
+      <p>{{ contract.product }}</p>
+    </div>
+    <div class="info-field">
+      <p><b>Restrictions:</b></p>
+      <p>{{contract.restrictions}}</p>
+    </div>
+    <div class="info-field">
+      <p><b>Operator:</b></p>
+      <p>{{ contract.operator }}</p>
+    </div>
+  </section>
+  <div class="border-line"></div>
+  <section id="current-containers">
+    <div id="current-containers-parts">
+      <div class="container-headers">
+        <p><b>Current Containers</b></p>
+        
+        <div class="container-info">
+          <table>
+            <tr>
+              <th>Container</th>
+              <th>BOL</th>
+              <th>COC</th>
+              <th>Weight</th>
+              <th>Percent</th>
+            </tr>
+            <tr>
+          {% for container in contract.curr_containers %}
+              <td>{{ container.container }}</td>
+              <td><a href="#">BL144</a></td>
+              <td><a href="#">COC</a></td>
+              <td>{{ container.weight }}</td>
+              <td>100%</td>
+            </tr>
+          </table>
+          {% endfor %}
+          <section id="pending-containers" class="text-red">
+            <div id="pending-containers-parts">
+              <div class="container-headers">
+                <p><b>Pending Containers</b></p>
+              </div>
+              {% for container in contract.pend_containers %}
+              <div class="container-info">
+                <table>
+                  <tr>
+                    <th>Container</th>
+                    <th>BOL</th>
+                    <th>COC</th>
+                    <th>Weight</th>
+                    <th>Percent</th>
+                  </tr>
+                  <tr>
+                    <td>{{ container.container }}</td>
+                    <td><a href="#">BL144</a></td>
+                    <td><a href="#">COC</a></td>
+                    <td>{{ container.weight }}</td>
+                    <td>100%</td>
+                  </tr>
+                </table>
+                {% endfor %}
+                
+                <h1 id="sign">Agent: ________________________</h1>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
