@@ -7,4 +7,4 @@ from import_export.admin import ImportExportModelAdmin
 
 @admin.register(Container)
 class ViewAdmin(ImportExportModelAdmin):
-    fields = ['contract_number']
+    pass

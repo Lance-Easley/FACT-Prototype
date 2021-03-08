@@ -16,6 +16,7 @@
         <th scope="col">View Summary</th>
       </tr>
       {% for contract in contracts %}
+      {% if not contract.pend_containers %}}
       <tr >
         <td scope="row">{{ contract.company_code }}</td>
         <td scope="row">{{ contract.contract_number }}</td>
@@ -23,6 +24,7 @@
         <td scope="row">{{ contract.contract_date }}</td>
         <td scope="row"><a href="{% url 'contract_detail' contract.id %}">SELECT</a></td>
       </tr>
+      {% endif %}
       {% endfor %}
 {% endblock content %}
 

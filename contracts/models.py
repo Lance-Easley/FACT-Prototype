@@ -13,7 +13,7 @@ class Contract(models.Model):
     contract_date = models.DateTimeField(default=timezone.now)
     restrictions = models.CharField(max_length=20)
     curr_containers = models.JSONField()
-    pend_containers = models.JSONField(null=True)
+    pend_containers = models.JSONField(null=True, blank=True)
     contract_date_updated_at = models.DateTimeField(auto_now=True)
 
 

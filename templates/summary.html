@@ -49,6 +49,7 @@
           <p class="align-center"><b>XFR</b></p>
         </div>
         {% for container in contract.curr_containers %}
+        {% if not contract.pend_containers %}}
         <div class="container-info" >
           <p>{{ container.container }}</p>
           <p><a href="#">BL144</a></p>
@@ -62,6 +63,7 @@
             >
           </p>
         </div>
+        {% endif %}
         {% endfor %}
         <!-- <pre>{{ contract.curr_containers }}</pre> -->
     </div>
