@@ -10,11 +10,10 @@ class Contract(models.Model):
     product = models.CharField(max_length=25)
     operator = models.CharField(max_length=50)
     total_weight = models.PositiveIntegerField()
-    contract_date = models.DateField()
+    contract_date = models.DateTimeField(auto_now_add=True)
     restrictions = models.CharField(max_length=20)
     curr_containers = models.JSONField()
     pend_containers = models.JSONField(null=True)
-    datetime = models.DateTimeField(auto_now_add=True)
 
 
     def __str__(self):
