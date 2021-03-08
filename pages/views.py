@@ -1,9 +1,38 @@
-from django.shortcuts import get_list_or_404, redirect
+from django.shortcuts import get_list_or_404, redirect, render
 from django.views.generic import TemplateView, UpdateView, DetailView, ListView
 from containers.models import Container
 from contracts.models import Contract
 from urllib.parse import unquote
 from contracts.forms import QueuedContainerForm
+# htmltopdf
+from io import BytesIO
+from django.http import HttpResponse
+from django.template.loader import get_template
+from django.views import View
+from xhtml2pdf import pisa
+
+def render_to_pdf(template_src, context_dict={}):
+	template = get_template(template_src)
+	html  = template.render(context_dict)
+	result = BytesIO()
+	pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+	if not pdf.err:
+		return HttpResponse(result.getvalue(), content_type='application/pdf')
+	return None
+#Opens up page as PDF
+class ViewPDF(View):
+	def get(self, request, pk, *args, **kwargs):
+		pdf = render_to_pdf('pdf_pending.html', {"contract": Contract.objects.get(pk=pk)})
+		return HttpResponse(pdf, content_type='application/pdf')
+#Automaticly downloads to PDF file
+class DownloadPDF(View):
+	def get(self, request, *args, **kwargs):
+		pdf = render_to_pdf('pdf_pending.html')
+		response = HttpResponse(pdf, content_type='application/pdf')
+		filename = "Invoice_%s.pdf" %("12341231")
+		content = "attachment; filename='%s'" %(filename)
+		response['Content-Disposition'] = content
+		return response
 
 # Create your views here.
 class TestTemplateView(TemplateView):
