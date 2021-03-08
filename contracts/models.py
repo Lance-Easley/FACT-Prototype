@@ -1,5 +1,7 @@
 from django.db import models
+from django.conf import settings
 import json
+from django.utils import timezone
 
 # Create your models here.
 class Contract(models.Model):
@@ -12,6 +14,8 @@ class Contract(models.Model):
     restrictions = models.CharField(max_length=20)
     curr_containers = models.JSONField()
     pend_containers = models.JSONField(null=True)
+    datetime = models.DateTimeField(auto_now_add=True)
+
 
     def __str__(self):
         return(self.company_code)
