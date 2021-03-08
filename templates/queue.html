@@ -13,6 +13,7 @@
         <th scope="col">Contract Number</th>
         <th scope="col">Operator</th>
         <th scope="col">Date</th>
+        <th scope="col">Updated At</th>
         <th scope="col">View Summary</th>
       </tr>
       {% for contract in contracts %}
@@ -22,6 +23,7 @@
         <td scope="row">{{ contract.contract_number }}</td>
         <td scope="row">{{ contract.operator }}</td>
         <td scope="row">{{ contract.contract_date }}</td>
+        <td scope="row">{{ contract.contract_date_updated_at }}</td>
         <td scope="row"><a href="{% url 'pending' contract.id %}">SELECT</a></td>
       </tr>
       {% endif %}
