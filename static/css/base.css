@@ -50,9 +50,15 @@ body {
   }
 
 #__navbar #brand {
-    padding: 0px 20px;
-    text-decoration-color: #787a7b;
+    /* padding: 0px 20px; */
     font-style: italic;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 0px 30px;
+    margin-top: -9px;
+    height: 23px;
+    font-size: 23px;
   }
 
 /* Home */
