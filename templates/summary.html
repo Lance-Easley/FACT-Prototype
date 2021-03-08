@@ -57,10 +57,7 @@
           <p class="align-end">{{ container.weight }}</p>
           <p class="align-end">100%</p>
           <p class="align-center">
-            <a
-              href="{% url 'queue' contract.id container.container|urlencode:"" %}"
-              >T</a
-            >
+            <a href="{% url 'queue' contract.id container.container|urlencode:"" %}">T</a>
           </p>
         </div>
         {% endif %}
@@ -72,10 +69,7 @@
   <section id="hyperlinks">
     <p class="align-center"><a href="{% url 'containers' %}">Available Containers</a></p>
     <p class="align-center"><a href="#">Reallocate Containers</a></p>
-    <p class="align-center"><a href="#">Esign & Submit</a></p>
     <p class="align-center"><a href="#">GRADE A - WWT</a></p>
-    <p class="align-center"><a href="#">Rebalance to New Weights</a></p>
-    <p class="align-center"><a href="#">Print & Sign</a></p>
   </section>
 </div>
 {% endblock content %}
