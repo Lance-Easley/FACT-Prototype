@@ -79,16 +79,13 @@ class ContractUpdateView(UpdateView):
 
     # makes a new json with inserted information and adding it on (editing and saving)
     def form_valid(self, form):
-        print("Data: ", repr(form.cleaned_data.items()))
-        print("TEST: ", repr(form.get_json))
-        new_json = [
-            # {"container": c, "weight": w}
-            # for c, w in form.cleaned_data.items()
-            # if w is not None
-            form.get_json
-        ]
+        # print("Data: ", repr(form.cleaned_data.items()))
+        # print("TEST: ", repr(form.get_json))
+        # {"container": c, "weight": w}
+        # for c, w in form.cleaned_data.items()
+        # if w is not None
         contract = self.get_object()
-        contract.pend_containers = new_json
+        contract.pend_containers = form.get_json
         contract.save()
         return redirect("pending", contract.id)
 

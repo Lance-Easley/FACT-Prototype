@@ -24,12 +24,13 @@ class QueuedContainerForm(forms.Form):
                 # self.container_weights.update(entry)
             entry = {}
             for c in contract.pend_containers:
+                # print("c: ", repr(c))
                 j_content = {}
                 if c["container"] == from_container:
                     j_list = []
                     for container in c["distribution"]:
-                        entry.update({container["container"]: container["weight"]})
-                        j_list.append({"container": container["container"], "weight": container["weight"]})
+                        entry.update({container["container"]: str(container["weight"])})
+                        j_list.append({"container": container["container"], "weight": str(container["weight"])})
                     j_content = {"container": from_container, "distribution": j_list}
                     self.json.append(j_content)
                 else:
@@ -38,8 +39,8 @@ class QueuedContainerForm(forms.Form):
                         if c["container"] == from_container:
                             j_list = []
                             for container in c["distribution"]:
-                                entry.update({container["container"]: container["weight"]})
-                                j_list.append({"container": container["container"], "weight": container["weight"]})
+                                entry.update({container["container"]: str(container["weight"])})
+                                j_list.append({"container": container["container"], "weight": str(container["weight"])})
                             j_content = {"container": from_container, "distribution": j_list}
                             self.json.append(j_content)
                 self.container_weights.update(entry)
@@ -49,18 +50,19 @@ class QueuedContainerForm(forms.Form):
             # })
             entry = {}
             for c in contract.curr_containers:
+                # print("c: ", repr(c))
                 j_content = {}
                 if c["container"] == from_container:
                     j_list = []
                     for container in c["distribution"]:
-                        entry.update({container["container"]: container["weight"]})
-                        j_list.append({"container": container["container"], "weight": container["weight"]})
+                        entry.update({container["container"]: str(container["weight"])})
+                        j_list.append({"container": container["container"], "weight": str(container["weight"])})
                     j_content = {"container": from_container, "distribution": j_list}
                     self.json.append(j_content)
                 self.container_weights.update(entry)
 
-        print(repr(self.container_weights))
-        print("JSON: ", repr(self.json))
+        # print(repr(self.container_weights))
+        # print("JSON: ", repr(self.json))
         self.from_container_weight = int(self.container_weights[from_container])
         for c in Container.objects.filter(company_code=contract.company_code):
             self.fields[c.unit_descriptor] = forms.IntegerField(
@@ -69,7 +71,7 @@ class QueuedContainerForm(forms.Form):
 
 
     def clean(self):
-        print("Starting to clean")
+        # print("Starting to clean")
         cleaned_data = super().clean()
 
         company_containers = {
@@ -79,9 +81,9 @@ class QueuedContainerForm(forms.Form):
         pending_weight_total = sum(
             cleaned_data.get(c, 0) or 0 for c in company_containers
         )
-        print(cleaned_data)
-        print(repr(pending_weight_total))
-        print(repr(self.from_container_weight))
+        # print(cleaned_data)
+        # print(repr(pending_weight_total))
+        # print(repr(self.from_container_weight))
         if pending_weight_total > self.contract.total_weight:
             print("BAD WEIGHTs")
             raise ValidationError(
@@ -100,7 +102,9 @@ class QueuedContainerForm(forms.Form):
                     for c, w in self.cleaned_data.items()
                     if w is not None
                 ]
-                print("T: ", transfer["container"])
+                print("distrib::: ", distrib)
+                print("T before: ", transfer)
                 transfer["distribution"] = distrib
+                print("T after: ", transfer)
         print("JSON::: ", repr(self.json))
-        return self.json
+        return json.loads(str(self.json).replace("'", '"'))
