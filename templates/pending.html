@@ -105,12 +105,10 @@
     <p class="align-center"><a href="{% url 'containers' %}">Available Containers</a></p>
     <p class="align-center"><a href="#">Reallocate Containers</a></p>
     <p class="align-center"><a href="{% url 'pdf_view' contract.id %}">View PDF</a></p>
-    <p class="align-center"><a href="#">GRADE A - WWT</a></p>
+    <p class="align-center"><a href="{% url 'grade_a'  %}">GRADE A - WWT</a></p>
     <p class="align-center"><a href="#">Rebalance to New Weights</a></p>
     <p class="align-center"><a href="{% url 'pdf_download' %}">Download PDF</a></p>
   </section>
-
-
 
 </div>
 {% endblock content %}

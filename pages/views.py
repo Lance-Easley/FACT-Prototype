@@ -113,3 +113,6 @@ class ContractDetailView(DetailView):
     template_name = 'summary.html'
 
 
+class GradeAListView(ListView):
+    model = Container
+    template_name = 'grade_a.html'

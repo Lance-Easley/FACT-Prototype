@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import TestTemplateView, ContractsListView, ContractDetailView, ContractUpdateView, ContractPendingDetailView, ContainerListView, QueuedContractsListView
+from .views import TestTemplateView, ContractsListView, ContractDetailView, ContractUpdateView, ContractPendingDetailView, ContainerListView, QueuedContractsListView, GradeAListView
 from . import views
 urlpatterns = [
     path('', ContractsListView.as_view(), name='home'),
@@ -14,4 +14,5 @@ urlpatterns = [
     path("contract/<int:pk>/pending", ContractPendingDetailView.as_view(), name="pending"),
     path('pdf_view/<int:pk>', views.ViewPDF.as_view(), name="pdf_view"),
     path('pdf_download/', views.DownloadPDF.as_view(), name="pdf_download"),
+    path('top/', GradeAListView.as_view(), name="grade_a" )
 ]
