@@ -26,12 +26,18 @@ class QueuedContainerForm(forms.Form):
             # })
             entry = {}
             for c in contract.curr_containers:
+                j_content = {"container": from_container}
                 if c["container"] == from_container:
+                    j_list = []
                     for container in c["distribution"]:
                         entry.update({container["container"]: container["weight"]})
+                        j_list.append({"container": container["container"], "weight": container["weight"]})
+                    j_content["distribution"] = j_list
+                self.json.append(j_content)
                 self.container_weights.update(entry)
 
         print(repr(self.container_weights))
+        print("JSON: ", repr(self.json))
         self.from_container_weight = int(self.container_weights[from_container])
         for c in Container.objects.filter(company_code=contract.company_code):
             self.fields[c.unit_descriptor] = forms.IntegerField(
