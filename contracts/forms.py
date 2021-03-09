@@ -11,14 +11,25 @@ class QueuedContainerForm(forms.Form):
         self.container_weights = {}
         self.json = []
         if contract.pend_containers:
-            entry = {}
-            for c in contract.pend_containers:
-                if c["container"] == from_container:
-                    for container in c["distribution"]:
-                        entry.update({container["container"]: container["weight"]})
+            # entry = {}
+            # for c in contract.pend_containers:
+            #     if c["container"] == from_container:
+            #         for container in c["distribution"]:
+            #             entry.update({container["container"]: container["weight"]})
             # self.container_weights.update({
             #     c["container"]: c["weight"] for c in contract.pend_containers
             # })
+                # self.container_weights.update(entry)
+            entry = {}
+            for c in contract.pend_containers:
+                j_content = {}
+                if c["container"] == from_container:
+                    j_list = []
+                    for container in c["distribution"]:
+                        entry.update({container["container"]: container["weight"]})
+                        j_list.append({"container": container["container"], "weight": container["weight"]})
+                    j_content = {"container": from_container, "distribution": j_list}
+                    self.json.append(j_content)
                 self.container_weights.update(entry)
         else:
             # self.container_weights.update({
@@ -26,14 +37,14 @@ class QueuedContainerForm(forms.Form):
             # })
             entry = {}
             for c in contract.curr_containers:
-                j_content = {"container": from_container}
+                j_content = {}
                 if c["container"] == from_container:
                     j_list = []
                     for container in c["distribution"]:
                         entry.update({container["container"]: container["weight"]})
                         j_list.append({"container": container["container"], "weight": container["weight"]})
-                    j_content["distribution"] = j_list
-                self.json.append(j_content)
+                    j_content = {"container": from_container, "distribution": j_list}
+                    self.json.append(j_content)
                 self.container_weights.update(entry)
 
         print(repr(self.container_weights))
