@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from containers.models import Container
+import json
 
 
 class QueuedContainerForm(forms.Form):
@@ -11,6 +12,7 @@ class QueuedContainerForm(forms.Form):
         self.container_weights = {}
         self.json = []
         if contract.pend_containers:
+            self.json = json.loads(str(self.contract.pend_containers).replace("'", '"'))
             # entry = {}
             # for c in contract.pend_containers:
             #     if c["container"] == from_container:
@@ -30,6 +32,16 @@ class QueuedContainerForm(forms.Form):
                         j_list.append({"container": container["container"], "weight": container["weight"]})
                     j_content = {"container": from_container, "distribution": j_list}
                     self.json.append(j_content)
+                else:
+                    for c in contract.curr_containers:
+                        j_content = {}
+                        if c["container"] == from_container:
+                            j_list = []
+                            for container in c["distribution"]:
+                                entry.update({container["container"]: container["weight"]})
+                                j_list.append({"container": container["container"], "weight": container["weight"]})
+                            j_content = {"container": from_container, "distribution": j_list}
+                            self.json.append(j_content)
                 self.container_weights.update(entry)
         else:
             # self.container_weights.update({
@@ -55,9 +67,6 @@ class QueuedContainerForm(forms.Form):
                 required=False, initial=self.container_weights.get(c.unit_descriptor)
             )
 
-    @property
-    def get_json(self):
-        return self.json
 
     def clean(self):
         print("Starting to clean")
@@ -80,3 +89,18 @@ class QueuedContainerForm(forms.Form):
             )
 
         return cleaned_data
+
+    @property
+    def get_json(self):
+        for transfer in self.json:
+            if transfer["container"] == self.from_container:
+                print("transfer::: ", transfer)
+                distrib = [
+                    {"container": c, "weight": w}
+                    for c, w in self.cleaned_data.items()
+                    if w is not None
+                ]
+                print("T: ", transfer["container"])
+                transfer["distribution"] = distrib
+        print("JSON::: ", repr(self.json))
+        return self.json
