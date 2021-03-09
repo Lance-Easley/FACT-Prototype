@@ -1,99 +1,33 @@
 <!-- Summary of Transfers with Pending Changes -->
 <style>
-  * {
-    font-size: 15px;
+  *{
+    font-size: 13px;
   }
-  #__pending {
-    margin: 50px auto;
-    width: 75%;
-  }
-
-  #__pending section {
+  .date{
+  color: black;
+  padding: 0px 25px;
+  font-style: italic;
+}
+.header {
     padding: 0px 25px;
-  }
-
-  /* Classes used all throughout */
-  #__pending .align-center {
-    text-align: center;
-  }
-
-  #__pending .align-end {
-    text-align: end;
-  }
-
-  #__pending .text-red {
-    color: red;
-  }
-
-  #__pending .border-line {
-    height: 1px;
-    border-bottom: 5px solid #0044aa;
-    margin-bottom: 10px;
-    margin-left: -1px;
-  }
-
-  /* 1st box: title and contract info */
-  #__pending #title {
-    padding: 0px 25px;
-    color: #0088dd;
+    color: #0088DD;
     font-style: italic;
-  }
+}
+p{
+  padding: -6px;
+  padding-left: 19px;
+}
+table{
+  padding:1.5px;
+}
+h1{
+  color: #0088DD;
+}
 
-  #__pending #contract-info {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 0px 125px;
-    margin-bottom: 15px;
-  }
-
-  #__pending #contract-info p {
-    width: 200px;
-  }
-
-  #__pending .info-field {
-    display: grid;
-    grid-template-columns: 150px 100px;
-    margin: -18px 0px;
-  }
-
-  /* 2nd box: Current Containers */
-  #__pending #current-containers {
-    margin-bottom: 10px;
-  }
-
-  #__pending .container-headers {
-    display: grid;
-    grid-template-columns: auto 75px 75px 100px 100px 65px;
-  }
-
-  #__pending .container-info {
-    margin: -30px 0px 0px;
-    display: grid;
-    grid-template-columns: auto 75px 75px 100px 100px 65px;
-  }
-
-  /* 3rd box: Pending Containers */
-  #__pending #pending .container-info p {
-    color: red;
-  }
-
-  #__pending #pending .container-info a {
-    color: red;
-  }
-
-  #__pending #total-row {
-    margin: -30px 0px 0px;
-    display: grid;
-    grid-template-columns: auto 75px 75px 100px 100px 65px;
-    grid-column-start: 2;
-  }
-  #sign{
-    color: black;
-  }
 </style>
-
 <div id="__pending">
-  <h1 id="title">FACT - Cargo Transfer SUMMARY</h1>
+  <h1 class="header">FACT - Cargo Transfer SUMMARY</h1>
+  
   <section id="contract-info">
     <div class="info-field">
       <p><b>Contract NO.:</b></p>
@@ -128,9 +62,11 @@
   <section id="current-containers">
     <div id="current-containers-parts">
       <div class="container-headers">
-        <p><b>Current Containers</b></p>
+        <h1>Current Containers</h1>
+        <h3 class="date">Created on {{ contract.contract_date }}</h3>
         
         <div class="container-info">
+          {% for container in contract.curr_containers %}
           <table>
             <tr>
               <th>Container</th>
@@ -139,8 +75,9 @@
               <th>Weight</th>
               <th>Percent</th>
             </tr>
+          </table>
+          <table>
             <tr>
-          {% for container in contract.curr_containers %}
               <td>{{ container.container }}</td>
               <td><a href="#">BL144</a></td>
               <td><a href="#">COC</a></td>
@@ -152,18 +89,13 @@
           <section id="pending-containers" class="text-red">
             <div id="pending-containers-parts">
               <div class="container-headers">
-                <p><b>Pending Containers</b></p>
+                <h1>Pending Containers</h1>
+                <h3 class="date" > Updated at: {{ contract.contract_date_updated_at }}</h3>
               </div>
-              {% for container in contract.pend_containers %}
               <div class="container-info">
+                {% for container in contract.pend_containers %}
                 <table>
-                  <tr>
-                    <th>Container</th>
-                    <th>BOL</th>
-                    <th>COC</th>
-                    <th>Weight</th>
-                    <th>Percent</th>
-                  </tr>
+                  
                   <tr>
                     <td>{{ container.container }}</td>
                     <td><a href="#">BL144</a></td>
@@ -174,7 +106,8 @@
                 </table>
                 {% endfor %}
                 
-                <h1 id="sign">Agent: ________________________</h1>
+                <h2 id="sign">Agent: ______________________________</h2>
+                
               </div>
             </div>
           </section>
