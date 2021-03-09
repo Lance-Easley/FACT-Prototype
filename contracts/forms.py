@@ -14,16 +14,23 @@ class QueuedContainerForm(forms.Form):
             entry = {}
             for c in contract.pend_containers:
                 if c["container"] == from_container:
-                    for container, weight in c["distribution"].items():
-                        entry.update({container: weight})
+                    for container in c["distribution"]:
+                        entry.update({container["container"]: container["weight"]})
             # self.container_weights.update({
             #     c["container"]: c["weight"] for c in contract.pend_containers
             # })
-            self.container_weights.update(entry)
+                self.container_weights.update(entry)
         else:
-            self.container_weights.update({
-                c["container"]: c["weight"] for c in contract.curr_containers
-            })
+            # self.container_weights.update({
+            #     c["container"]: c["weight"] for c in contract.curr_containers
+            # })
+            entry = {}
+            for c in contract.curr_containers:
+                if c["container"] == from_container:
+                    for container in c["distribution"]:
+                        entry.update({container["container"]: container["weight"]})
+                self.container_weights.update(entry)
+
         print(repr(self.container_weights))
         self.from_container_weight = int(self.container_weights[from_container])
         for c in Container.objects.filter(company_code=contract.company_code):
