@@ -39,7 +39,7 @@
       <p>{{ contract.operator }}</p>
     </div>
   </section>
-
+  <div class="border-line"></div>
 
 <!--Current Containers -->
   
@@ -70,6 +70,7 @@
     {% endfor %}
     <!-- <pre>{{ contract.curr_containers }}</pre> -->
 </div>
+<div class="border-line"></div>
 </section>
 
   <!-- Pending Containers -->
@@ -82,29 +83,24 @@
             <p></p>
             <p class="align-end"><b>Tare WT</b></p>
             <p class="align-end"><b>DISTR</b></p>
-            <p class="align-center"><b>XFR</b></p>
           </div>
-          {% for container in contract.pend_containers %}
-          <div class="container-info">
-            <p>{{ container.container }}</p>
-            <p><a href="#">BL144</a></p>
-            <p><a href="#">COC</a></p>
-            <p class="align-end">{{ container.weight }}</p>
-            <p class="align-end">100%</p>
-            <p class="align-center">
-              <a
-                href="{% url 'queue' contract.id container.container|urlencode:"" %}"
-                >T</a
-              >
-            </p>
-          </div>
+          {% for master_container in contract.pend_containers %}
+            {% for container in master_container.distribution %}
+              <div class="container-info">
+                <p>{{ container.container }}</p>
+                <p><a href="#">BL144</a></p>
+                <p><a href="#">COC</a></p>
+                <p class="align-end">{{ container.weight }}</p>
+                <p class="align-end">100%</p>
+              </div>
+            {% endfor %}
           {% endfor %}
           <!-- <pre>{{ contract.curr_containers }}</pre> -->
       </div>
     </section>
 
     <!-- bottom links -->
-  <div class="border-line"></div>
+<div class="border-line"></div>
   <section id="hyperlinks">
     <p class="align-center"><a href="{% url 'containers' %}">Available Containers</a></p>
     <p class="align-center"><a href="#">Reallocate Containers</a></p>

@@ -8,19 +8,45 @@ class QueuedContainerForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.contract = contract
         self.from_container = from_container
-        container_weights = {
-            c["container"]: c["weight"] for c in contract.curr_containers
-        }
+        self.container_weights = {}
+        self.json = []
         if contract.pend_containers:
-            container_weights.update({
-                c["container"]: c["weight"] for c in contract.pend_containers
-            })
-        print(repr(container_weights))
-        self.from_container_weight = int(container_weights[from_container])
+            entry = {}
+            for c in contract.pend_containers:
+                if c["container"] == from_container:
+                    for container in c["distribution"]:
+                        entry.update({container["container"]: container["weight"]})
+            # self.container_weights.update({
+            #     c["container"]: c["weight"] for c in contract.pend_containers
+            # })
+                self.container_weights.update(entry)
+        else:
+            # self.container_weights.update({
+            #     c["container"]: c["weight"] for c in contract.curr_containers
+            # })
+            entry = {}
+            for c in contract.curr_containers:
+                j_content = {"container": from_container}
+                if c["container"] == from_container:
+                    j_list = []
+                    for container in c["distribution"]:
+                        entry.update({container["container"]: container["weight"]})
+                        j_list.append({"container": container["container"], "weight": container["weight"]})
+                    j_content["distribution"] = j_list
+                self.json.append(j_content)
+                self.container_weights.update(entry)
+
+        print(repr(self.container_weights))
+        print("JSON: ", repr(self.json))
+        self.from_container_weight = int(self.container_weights[from_container])
         for c in Container.objects.filter(company_code=contract.company_code):
             self.fields[c.unit_descriptor] = forms.IntegerField(
-                required=False, initial=container_weights.get(c.unit_descriptor)
+                required=False, initial=self.container_weights.get(c.unit_descriptor)
             )
+
+    @property
+    def get_json(self):
+        return self.json
 
     def clean(self):
         print("Starting to clean")
