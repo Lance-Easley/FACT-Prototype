@@ -46,12 +46,21 @@
       </div> -->
     </section>
 
-  <form method="POST">
-  {% csrf_token %}
-  <table style="margin:auto">
-  {{ form.as_table }}
-  </table>
-  <button style="font-size: 2rem; margin: auto">Transfer</button>
-  </form>
-    </div>
-{% endblock %}
+    <form method="POST">
+      {% csrf_token %}
+      <table style="margin:auto">
+        {% for field in form.fields %}
+          {% for item in distrib %} 
+            <td>{{ item.container }}</td>
+            <td>{{ item.weight }}</td>
+          {% endfor %}
+        <!-- <tr class="container-control">
+          <td>{{ field.c.unit_descriptor }}</td>
+          <td>{{ field.initial }}</td>
+        </tr> -->
+        {% endfor %}
+      </table>
+      <button style="font-size: 2rem; margin: auto">Transfer</button>
+      </form>
+        </div>
+    {% endblock %}
