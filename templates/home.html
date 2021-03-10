@@ -1,13 +1,10 @@
 <!-- Initial Page with Company Contracts Listed -->
-{% extends 'base.html' %}
-
-{% block title %}FACT Pending{% endblock title %}
-
+{% extends 'base.html' %} {% block title %}FACT Pending{% endblock title %}
 {% block content %}
-<div id="__home">
-
-    <h1 id="title">CONTRACTS</h1>
-    <table style="width: 70%">
+<div>
+  <h1>CONTRACTS</h1>
+  <table class="table table-striped">
+    <thead class="thead-light">
       <tr>
         <th scope="col">Company code</th>
         <th scope="col">Contract Number</th>
@@ -15,16 +12,20 @@
         <th scope="col">Date</th>
         <th scope="col">View Summary</th>
       </tr>
-      {% for contract in contracts %}
-      {% if not contract.pend_containers %}
-      <tr >
-        <td scope="row">{{ contract.company_code }}</td>
-        <td scope="row">{{ contract.contract_number }}</td>
-        <td scope="row">{{ contract.operator }}</td>
-        <td scope="row">{{ contract.contract_date }}</td>
-        <td scope="row"><a href="{% url 'contract_detail' contract.id %}">SELECT</a></td>
-      </tr>
-      {% endif %}
-      {% endfor %}
+    </thead>
+    {% for contract in contracts %}
+    {% if not contract.pend_containers %}
+    <tr>
+      <td scope="row">{{ contract.company_code }}</td>
+      <td scope="row">{{ contract.contract_number }}</td>
+      <td scope="row">{{ contract.operator }}</td>
+      <td scope="row">{{ contract.contract_date }}</td>
+      <td scope="row">
+        <a href="{% url 'contract_detail' contract.id %}">SELECT</a>
+      </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </table>
+</div>
 {% endblock content %}
-
