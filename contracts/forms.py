@@ -32,7 +32,17 @@ class QueuedContainerForm(forms.Form):
                         entry.update({container["container"]: str(container["weight"])})
                         j_list.append({"container": container["container"], "weight": str(container["weight"])})
                     j_content = {"container": from_container, "distribution": j_list}
-                    self.json.append(j_content)
+                    exists = False
+                    distribution = None
+                    for dictionary in self.json:
+                        if dictionary["container"] == self.from_container:
+                            exists = True
+                            distribution = dictionary['distribution']
+                            break
+                    if not exists:
+                        self.json.append(j_content)
+                    else:
+                        c['distribution'] = distribution
                 else:
                     for c in contract.curr_containers:
                         j_content = {}
@@ -42,7 +52,17 @@ class QueuedContainerForm(forms.Form):
                                 entry.update({container["container"]: str(container["weight"])})
                                 j_list.append({"container": container["container"], "weight": str(container["weight"])})
                             j_content = {"container": from_container, "distribution": j_list}
-                            self.json.append(j_content)
+                            exists = False
+                            distribution = None
+                            for dictionary in self.json:
+                                if dictionary["container"] == self.from_container:
+                                    exists = True
+                                    distribution = dictionary['distribution']
+                                    break
+                            if not exists:
+                                self.json.append(j_content)
+                            else:
+                                c['distribution'] = distribution
                 self.container_weights.update(entry)
         else:
             # self.container_weights.update({
@@ -60,10 +80,10 @@ class QueuedContainerForm(forms.Form):
                     j_content = {"container": from_container, "distribution": j_list}
                     self.json.append(j_content)
                 self.container_weights.update(entry)
-
         # print(repr(self.container_weights))
         # print("JSON: ", repr(self.json))
         self.from_container_weight = int(self.container_weights[from_container])
+        print("from_weight: ", self.from_container_weight)
         for c in Container.objects.filter(company_code=contract.company_code):
             self.fields[c.unit_descriptor] = forms.IntegerField(
                 required=False, initial=self.container_weights.get(c.unit_descriptor)
@@ -84,6 +104,7 @@ class QueuedContainerForm(forms.Form):
         # print(cleaned_data)
         # print(repr(pending_weight_total))
         # print(repr(self.from_container_weight))
+        print("total_weight: ", self.contract.total_weight)
         if pending_weight_total > self.contract.total_weight:
             print("BAD WEIGHTs")
             raise ValidationError(
@@ -96,15 +117,11 @@ class QueuedContainerForm(forms.Form):
     def get_json(self):
         for transfer in self.json:
             if transfer["container"] == self.from_container:
-                print("transfer::: ", transfer)
                 distrib = [
                     {"container": c, "weight": w}
                     for c, w in self.cleaned_data.items()
                     if w is not None
                 ]
-                print("distrib::: ", distrib)
-                print("T before: ", transfer)
+                # del transfer["distribution"]
                 transfer["distribution"] = distrib
-                print("T after: ", transfer)
-        print("JSON::: ", repr(self.json))
         return json.loads(str(self.json).replace("'", '"'))
