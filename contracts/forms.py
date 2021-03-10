@@ -86,7 +86,7 @@ class QueuedContainerForm(forms.Form):
         print("from_weight: ", self.from_container_weight)
         for c in Container.objects.filter(company_code=contract.company_code):
             self.fields[c.unit_descriptor] = forms.IntegerField(
-                required=False, initial=self.container_weights.get(c.unit_descriptor)
+                required=False, initial=self.container_weights.get(c.unit_descriptor, 0)
             )
 
 
