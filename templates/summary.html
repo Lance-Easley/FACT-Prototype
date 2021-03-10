@@ -5,8 +5,8 @@
 {% block title %}FACT Pending{% endblock title %}
 
 {% block content %}
-  <div id="__pending">
-    <h1 id="title">FACT - Cargo Transfer SUMMARY</h1>
+    <a href="{% url 'home' %}" class="btn btn-primary " role="button">BACK</a>
+    <h1 id="title" class="text-center">FACT - Cargo Transfer SUMMARY</h1>
     <section id="contract-info">
       <div class="info-field">
         <p><b>Contract NO.:</b></p>
@@ -71,5 +71,4 @@
     <p class="align-center"><a href="#">Reallocate Containers</a></p>
     <p class="align-center"><a href="{% url 'grade_a'  %}">GRADE A - WWT</a></p>
   </section>
-</div>
 {% endblock content %}

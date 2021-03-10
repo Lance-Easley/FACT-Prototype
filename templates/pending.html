@@ -8,7 +8,7 @@
 
 <!-- contract information -->
 <div id="__pending">
-  <h1 id="title">FACT - Cargo Transfer PENDING</h1>
+  <h1 id="title" class="text-center">FACT - Cargo Transfer PENDING</h1>
   <section id="contract-info">
     <div class="info-field">
       <p><b>Contract NO.:</b></p>
@@ -54,19 +54,19 @@
       <p class="align-center"><b>XFR</b></p>
     </div>
     {% for master_container in contract.curr_containers %}
-            {% for container in master_container.distribution %}
-              <div class="container-info">
-                <p>{{ container.container }}</p>
-                <p><a href="#">BL144</a></p>
-                <p><a href="#">COC</a></p>
-                <p class="align-end">{{ container.weight }}</p>
-                <p class="align-end">100%</p>
-                <p class="align-center">
-                  <a href="{% url 'queue' contract.id container.container|urlencode:"" %}">T</a>
-                </p>
-              </div>
-            {% endfor %}
-          {% endfor %}
+      {% for container in master_container.distribution %}
+        <div class="container-info">
+          <p>{{ container.container }}</p>
+          <p><a href="#">BL144</a></p>
+          <p><a href="#">COC</a></p>
+          <p class="align-end">{{ container.weight }}</p>
+          <p class="align-end">100%</p>
+          <p class="align-center">
+            <a href="{% url 'queue' contract.id container.container|urlencode:"" %}">T</a>
+          </p>
+        </div>
+      {% endfor %}
+    {% endfor %}
     <!-- <pre>{{ contract.curr_containers }}</pre> -->
 </div>
 <div class="border-line"></div>
@@ -85,13 +85,29 @@
           </div>
           {% for master_container in contract.pend_containers %}
             {% for container in master_container.distribution %}
-              <div class="container-info">
-                <p>{{ container.container }}</p>
-                <p><a href="#">BL144</a></p>
-                <p><a href="#">COC</a></p>
-                <p class="align-end">{{ container.weight }}</p>
-                <p class="align-end">100%</p>
-              </div>
+              {% if container.weight == 0 %}
+                {% for master_container in contract.curr_containers %}
+                  {% for c_container in master_container.distribution %}
+                    {% if container.container == c_container.container %}
+                      <div class="container-info">
+                        <p>{{ container.container }}</p>
+                        <p><a href="#">BL144</a></p>
+                        <p><a href="#">COC</a></p>
+                        <p class="align-end">{{ container.weight }}</p>
+                        <p class="align-end">100%</p>
+                      </div>
+                    {% endif %}
+                  {% endfor%}
+                {% endfor%}
+              {% else %}
+                <div class="container-info">
+                  <p>{{ container.container }}</p>
+                  <p><a href="#">BL144</a></p>
+                  <p><a href="#">COC</a></p>
+                  <p class="align-end">{{ container.weight }}</p>
+                  <p class="align-end">100%</p>
+                </div>
+              {% endif %}
             {% endfor %}
           {% endfor %}
           <!-- <pre>{{ contract.curr_containers }}</pre> -->

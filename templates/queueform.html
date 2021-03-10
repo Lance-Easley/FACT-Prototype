@@ -7,60 +7,56 @@
 {% block content %}
 <div id="__queueform">
   <h1 id="title">QUEUE FORM</h1>
-    <section id="contract-info" class= "border-line">
-      <div class="info-field">
-        <p><b>Transferring From: </b></p>
-      </div>
-      <div class="info-field">
-        <p><b>Weight</b></p>
-      </div>
-      <div class="info-field">
-        <p>{{ form.from_container }}</p>
-      </div>
-      <div class="info-field">
-        <p>{{ form.from_container_weight}}</p>
-      </div>
-      <!-- <div class="info-field">
-        <p><b>Transferred</b></p>
-      </div>
-      <div class="info-field">
-        <p>31,539</p>
-      </div>
-      <div class="info-field">
-        <p><b>Balance In:</b></p>
-      </div>
-      <div class="info-field">
-        <p>7,000</p>
-      </div>
-      <div class="info-field">
-        <p><b>TRANSFER TO:</b></p>
-      </div>
-      <div class="info-field">
-        <p></p>
-      </div>
-      <div class="info-field">
-        <p>TRANSFERRED</p>
-      </div>
-      <div class="info-field">
-        <p>31,539</p>
-      </div> -->
-    </section>
+  <section id="contract-info" class= "border-line">
+    <div class="info-field">
+      <p><b>Transferring From: </b></p>
+    </div>
+    <div class="info-field">
+      <p><b>Weight</b></p>
+    </div>
+    <div class="info-field">
+      <p>{{ form.from_container }}</p>
+    </div>
+    <div class="info-field">
+      <p>{{ form.from_container_weight }}</p>
+    </div>
+  </section>
 
-    <form method="POST">
-      {% csrf_token %}
-      <table style="margin:auto">
-        {% for field in form.fields %}
-          {% for item in distrib %} 
-            <td>{{ item.container }}</td>
-            <td>{{ item.weight }}</td>
-          {% endfor %}
-        <!-- <tr class="container-control">
-          <td>{{ field.c.unit_descriptor }}</td>
-          <td>{{ field.initial }}</td>
-        </tr> -->
-        {% endfor %}
-      </table>
-      <button style="font-size: 2rem; margin: auto">Transfer</button>
-      </form>
+  <form method="POST">
+    {% csrf_token %}
+    <table style="margin:auto">
+      {% for field in form %}
+        <div class="container-control-container">
+          <tr class="container-control">
+            <td>{{ field.label_tag }}</td>
+            <td>{{ field }}</td>
+            <td><input type="number" class="percent-control">%</td>
+          </tr>
         </div>
-    {% endblock %}
+      {% endfor %}
+    </table>
+    <button style="font-size: 2rem; margin: auto">Transfer</button>
+  </form>
+  <script>
+    const controlContainer = document.querySelector(
+      ".container-control-container"
+    );
+    const totalWeight = {{ form.from_container_weight }};
+    const controls = document.querySelectorAll(".container-control");
+    
+    for (const control of controls) { 
+      const percentInput = control.querySelector(
+      ".percent-control"
+      );
+      const weightInput = control.querySelector("input[name]");
+      weightInput.addEventListener("input", () => {
+        percentInput.value = ((Number(weightInput.value) / totalWeight) * 100).toFixed(3);
+      });
+      percentInput.value = ((Number(weightInput.value) / totalWeight) * 100).toFixed(3);
+      percentInput.addEventListener("input", () => {
+        weightInput.value = ((totalWeight * Number(percentInput.value)) / 100).toFixed(3);
+      });
+    }
+  </script>
+</div>
+{% endblock %}
