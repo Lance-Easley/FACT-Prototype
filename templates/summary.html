@@ -48,20 +48,20 @@
           <p class="align-end"><b>DISTR</b></p>
           <p class="align-center"><b>XFR</b></p>
         </div>
-        {% for container in contract.curr_containers %}
-        {% if not contract.pend_containers %}
-        <div class="container-info" >
-          <p>{{ container.container }}</p>
-          <p><a href="#">BL144</a></p>
-          <p><a href="#">COC</a></p>
-          <p class="align-end">{{ container.weight }}</p>
-          <p class="align-end">100%</p>
-          <p class="align-center">
-            <a href="{% url 'queue' contract.id container.container|urlencode:"" %}">T</a>
-          </p>
-        </div>
-        {% endif %}
-        {% endfor %}
+        {% for master_container in contract.curr_containers %}
+            {% for container in master_container.distribution %}
+              <div class="container-info">
+                <p>{{ container.container }}</p>
+                <p><a href="#">BL144</a></p>
+                <p><a href="#">COC</a></p>
+                <p class="align-end">{{ container.weight }}</p>
+                <p class="align-end">100%</p>
+                <p class="align-center">
+                  <a href="{% url 'queue' contract.id container.container|urlencode:"" %}">T</a>
+                </p>
+              </div>
+            {% endfor %}
+          {% endfor %}
         <!-- <pre>{{ contract.curr_containers }}</pre> -->
     </div>
   </section>
