@@ -89,6 +89,27 @@ class QueuedContainerForm(forms.Form):
                 required=False, initial=self.container_weights.get(c.unit_descriptor, 0)
             )
 
+    @property
+    def contract_weight(self):
+        total = 0
+        containers_with_weight = []
+        for transfer in self.contract.pend_containers:
+            for distrib in transfer["distribution"]:
+                weight = distrib["weight"]
+                total += weight
+                if weight > 0:
+                    containers_with_weight.append(distrib["container"])
+        if total != self.contract.total_weight:
+            for transfer in self.contract.pend_containers:
+                for distrib in transfer["distribution"]:
+                    weight = distrib["weight"]
+                    if distrib["container"] not in containers_with_weight:
+                        total += weight
+                        if weight > 0:
+                            containers_with_weight.append(distrib["container"])
+        print(total)
+        return total
+
 
     def clean(self):
         # print("Starting to clean")
@@ -105,7 +126,7 @@ class QueuedContainerForm(forms.Form):
         # print(repr(pending_weight_total))
         # print(repr(self.from_container_weight))
         print("total_weight: ", self.contract.total_weight)
-        if pending_weight_total > self.contract.total_weight:
+        if pending_weight_total > self.contract_weight:
             print("BAD WEIGHTs")
             raise ValidationError(
                 "Container weights must total to the contract's total weight."
