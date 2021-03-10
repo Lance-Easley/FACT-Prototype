@@ -4,7 +4,9 @@
 
 {% block content %}
 <h1>All Containers</h1>
-<table style="width: 70%">
+<table class="table table-striped" style="width: 70%">
+    <thead class="thead-light">
+
       <tr>
         <th scope="col">Company code</th>
         <th scope="col">Unit Descriptor</th>
@@ -14,6 +16,7 @@
         <th scope="col">Bill of Lading</th>
         <th scope="col">Chain of Custody</th>
       </tr>
+      </thead>
       {% for container in object_list %}
       <tr >
         <td scope="row">{{container.company_code }}</td>

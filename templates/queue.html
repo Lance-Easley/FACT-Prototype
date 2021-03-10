@@ -7,8 +7,9 @@
 <div id="__home">
 
     <h1 id="title">QUEUE</h1>
-    <table class="table table-hover" style="width: 70%">
+    <table class="table table-striped" style="width: 70%">
       <tr>
+        <thead class="thead-light">
         <th scope="col">Company code</th>
         <th scope="col">Contract Number</th>
         <th scope="col">Operator</th>
@@ -16,6 +17,7 @@
         <th scope="col">Updated At</th>
         <th scope="col">View Summary</th>
       </tr>
+      </thead>
       {% for contract in contracts %}
       {% if contract.pend_containers %}
       <tr>
