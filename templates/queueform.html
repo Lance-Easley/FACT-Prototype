@@ -30,7 +30,7 @@
           <tr class="container-control">
             <td>{{ field.label_tag }}</td>
             <td>{{ field }}</td>
-            <td><input type="number" class="percent-control">%</td>
+            <td><input type="number" class="percent-control" step="any">%</td>
           </tr>
         </div>
       {% endfor %}
@@ -54,7 +54,7 @@
       });
       percentInput.value = ((Number(weightInput.value) / totalWeight) * 100).toFixed(3);
       percentInput.addEventListener("input", () => {
-        weightInput.value = ((totalWeight * Number(percentInput.value)) / 100).toFixed(3);
+        weightInput.value = Math.round((totalWeight * Number(percentInput.value)) / 100);
       });
     }
   </script>
