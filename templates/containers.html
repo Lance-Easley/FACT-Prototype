@@ -1,10 +1,20 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Containers</title>
+
+</head>
+<body>
+  {% extends 'base.html' %}
 
 {% block title %}All containers{% endblock title %}
 
 {% block content %}
 <h1>All Containers</h1>
-<table class="table table-striped" style="width: 70%">
+<table class="table table-striped" style="width: 70%" id="myTable">
     <thead class="thead-light">
 
       <tr>
@@ -17,6 +27,7 @@
         <th scope="col">Chain of Custody</th>
       </tr>
       </thead>
+      <tbody>
       {% for container in object_list %}
       <tr >
         <td scope="row">{{container.company_code }}</td>
@@ -26,7 +37,29 @@
         <td scope="row">{{container.rating}}</td>
         <td scope="row"><a href="">{{ container.bl_link}}</a></td>
         <td scope="row"><a href="">{{container.coc_link}}</a></td>
-
+        {% endfor %}
       </tr>
-      {% endfor %}
+    </tbody>
+  </table>
+
+<script>
+  $(document).ready(function() {
+    $('#myTable').DataTable();
+} );
+</script>
 {% endblock content %}
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
