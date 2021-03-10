@@ -85,13 +85,15 @@
           </div>
           {% for master_container in contract.pend_containers %}
             {% for container in master_container.distribution %}
-              <div class="container-info">
-                <p>{{ container.container }}</p>
-                <p><a href="#">BL144</a></p>
-                <p><a href="#">COC</a></p>
-                <p class="align-end">{{ container.weight }}</p>
-                <p class="align-end">100%</p>
-              </div>
+              {% if container.weight == 0 %}{% else %}
+                <div class="container-info">
+                  <p>{{ container.container }}</p>
+                  <p><a href="#">BL144</a></p>
+                  <p><a href="#">COC</a></p>
+                  <p class="align-end">{{ container.weight }}</p>
+                  <p class="align-end">100%</p>
+                </div>
+              {% endif %}
             {% endfor %}
           {% endfor %}
           <!-- <pre>{{ contract.curr_containers }}</pre> -->
