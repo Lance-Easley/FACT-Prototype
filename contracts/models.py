@@ -18,5 +18,5 @@ class Contract(models.Model):
 
 
     def __str__(self):
-        return(self.company_code)
+        return f'{self.company_code}: {self.contract_number}'
 
