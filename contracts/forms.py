@@ -126,7 +126,11 @@ class QueuedContainerForm(forms.Form):
         # print(repr(pending_weight_total))
         # print(repr(self.from_container_weight))
         print("total_weight: ", self.contract.total_weight)
-        if pending_weight_total > self.contract_weight:
+        if self.contract.pend_containers:
+            weight = self.contract_weight
+        else:
+            weight = self.contract.total_weight
+        if pending_weight_total > weight:
             print("BAD WEIGHTs")
             raise ValidationError(
                 "Container weights must total to the contract's total weight."
