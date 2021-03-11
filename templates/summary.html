@@ -1,74 +1,115 @@
 <!-- Summary of Transfers with Pending Changes -->
 
-{% extends 'base.html' %}
-
+{% extends 'base.html' %} 
 {% block title %}FACT Pending{% endblock title %}
-
-{% block content %}
-    <a href="{% url 'home' %}" class="btn btn-primary " role="button">BACK</a>
-    <h1 id="title" class="text-center">FACT - Cargo Transfer SUMMARY</h1>
-    <section id="contract-info">
-      <div class="info-field">
+{%block content %}
+<a href="{% url 'home' %}" class="btn btn-primary" role="button">BACK</a>
+<h1 id="title" class="text-center">FACT - Cargo Transfer SUMMARY</h1>
+<section id="contract-info">
+  <div class="container">
+    <div class="col">
+      <div class="row">
         <p><b>Contract NO.:</b></p>
         <p>{{ contract.contract_number }}</p>
       </div>
-      <div class="info-field">
+      <div class="row">
         <p><b>Total Weight:</b></p>
         <p>{{ contract.total_weight }}</p>
       </div>
-      <div class="info-field">
+      <div class="row">
         <p><b>Product CO.:</b></p>
         <p>{{ contract.company_code }}</p>
       </div>
-      <div class="info-field">
+      <div class="row">
         <p><b>Contract Date:</b></p>
         <p>{{ contract.contract_date }}</p>
       </div>
-      <div class="info-field">
+    </div>
+    <div class="col">
+      <div class="row">
         <p><b>Product:</b></p>
         <p>{{ contract.product }}</p>
       </div>
-      <div class="info-field">
+      <div class="row">
         <p><b>Restrictions:</b></p>
         <p>{{contract.restrictions}}</p>
       </div>
-      <div class="info-field">
+      <div class="row">
         <p><b>Operator:</b></p>
         <p>{{ contract.operator }}</p>
       </div>
-    </section>
-    <div class="border-line"></div>
-    <section id="current-containers">
-      <div id="current-containers-parts">
-        <div class="container-headers">
-          <p><b>Current Containers</b></p>
-          <p></p>
-          <p></p>
-          <p class="align-end"><b>Tare WT</b></p>
-          <p class="align-end"><b>DISTR</b></p>
-          <p class="align-center"><b>XFR</b></p>
-        </div>
-        {% for master_container in contract.curr_containers %}
-            {% for container in master_container.distribution %}
-              <div class="container-info">
-                <p>{{ container.container }}</p>
-                <p><a href="https://images.sampleforms.com/wp-content/uploads/2016/11/Blank-Bill-of-Lading-Form.jpg">BL144</a></p>
-                <p><a href="https://www.pdffiller.com/preview/0/967/967335/large.png">COC</a></p>
-                <p class="align-end">{{ container.weight }}</p>
-                <p class="align-end">100%</p>
-                <p class="align-center">
-                  <a href="{% url 'queue' contract.id container.container|urlencode:"" %}">T</a>
-                </p>
-              </div>
-            {% endfor %}
-          {% endfor %}
-        <!-- <pre>{{ contract.curr_containers }}</pre> -->
     </div>
-  </section>
-  <div class="border-line"></div>
-  <section id="hyperlinks">
-    <p class="align-center"><a href="{% url 'containers' %}">Available Containers</a></p>
-    <p class="align-center"><a href="#">Reallocate Containers</a></p>
-    <p class="align-center"><a href="{% url 'grade_a'  %}">GRADE A - WWT</a></p>
-  </section>
+  </div>
+</section>
+<div class="border-line"></div>
+<section id="current-containers">
+  <div id="current-containers-parts">
+    <div class="container-headers">
+      {% for master_container in contract.curr_containers %} 
+      {% for container in master_container.distribution %}
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            <p class="text-info"><b>Current Containers</b></p>
+            <p>{{ container.container }}</p>
+          </div>
+          <div class="col-sm">
+            <p></p>
+            <p>
+              <a
+                href="https://images.sampleforms.com/wp-content/uploads/2016/11/Blank-Bill-of-Lading-Form.jpg"
+                >BL144</a
+              >
+            </p>
+          </div>
+          <div class="col-sm">
+            <p></p>
+            <p>
+              <a href="https://www.pdffiller.com/preview/0/967/967335/large.png"
+                >COC</a
+              >
+            </p>
+          </div>
+          <div class="col-sm">
+            <p class="text-info"><b>Tare WT</b></p>
+            <p>{{ container.weight }}</p>
+          </div>
+          <div class="col-sm">
+            <p class="text-info"><b>DISTR</b></p>
+            <p>100%</p>
+          </div>
+          <div class="col-sm">
+            <p class="align-center text-info"><b>XFR</b></p>
+            <a href="{% url 'queue' contract.id container.container|urlencode:"" %}">T</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-info">
+      <div class="row"></div>
+    </div>
+    {% endfor %} 
+    {% endfor %}
+    <!-- <pre>{{ contract.curr_containers }}</pre> -->
+  </div>
+</section>
+<div class="border-line"></div>
+<section id="hyperlinks">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <a href="{% url 'containers' %}">Available Containers</a>
+      </div>
+      <div class="col-sm">
+        <p class="align-center"><a href="#">Reallocate Containers</a></p>
+      </div>
+      <div class="col-sm">
+        <p class="align-center">
+          <a href="{% url 'grade_a'  %}">GRADE A - WWT</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock content %}
