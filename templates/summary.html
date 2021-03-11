@@ -1,56 +1,150 @@
 <!-- Summary of Transfers with Pending Changes -->
+<style>
+#title{
+  text-align:center;
+  position: relative;
+  top: -10px;
+}
+#__pending section {
+    padding: 0px 25px;
+}
 
+/* Classes used all throughout */
+#__pending .align-center {
+    text-align: center;
+}
+
+#__pending .align-end {
+    text-align: end;
+    text-align: center;
+}
+
+
+#__pending #contract-info {
+    
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0px 125px;
+    margin-bottom: 15px;
+}
+
+#__pending #contract-info p {
+    position: relative;
+    left: 85px;
+    padding: 2px;
+    width: 200px;
+}
+/* 2nd box: Current Containers */
+#__pending #current-containers {
+    margin-bottom: 10px;
+}
+
+#__pending .container-headers {
+    display: grid;
+    grid-template-columns: auto 75px 75px 100px 100px 65px;
+}
+
+#__pending .container-info {
+    margin: -30px 0px 0px;
+    display: grid;
+    grid-template-columns: auto 75px 75px 100px 100px 65px;
+}
+
+#__pending #total-row {
+    margin: -30px 0px 0px;
+    display: grid;
+    grid-template-columns: auto 75px 75px 100px 100px 65px;
+    grid-column-start: 2;
+}
+
+#__pending #total-row-header {
+    grid-column-start: 3;
+}
+#back{
+  padding:3px;
+}
+#hyperlinks{
+  position: relative;
+  left:100px;
+}
+@media(min-width: 1200px) {
+    #__pending {
+        margin: 50px auto;
+        width: 900px;
+    }
+}
+
+@media(max-width: 900px) {
+    #__pending {
+        margin: 50px auto;
+        width: 675px;
+    }
+
+    #__pending #contract-info {
+        grid-template-columns: auto;
+    }
+}
+
+@media(max-width: 675px) {
+    #__pending {
+        width: 100%;
+    }
+
+    #__pending .container-info {
+        grid-template-columns: auto auto auto auto auto 65px;
+    }
+
+    #__pending .container-headers {
+        grid-template-columns: auto auto auto auto auto 65px;
+    }
+    
+}
+</style>
 {% extends 'base.html' %} 
 {% block title %}FACT Pending{% endblock title %}
 {%block content %}
 <a href="{% url 'home' %}" class="btn btn-primary" role="button">BACK</a>
-<h1 id="title" class="text-center">FACT - Cargo Transfer SUMMARY</h1>
-<section id="contract-info">
-  <div class="container">
-    <div class="col">
-      <div class="row">
+<div id="__pending">
+    <h1 id="title"><b>VAST - Cargo Transfer SUMMARY</b></h1>
+    <section id="contract-info">
+      <div class="info-field">
         <p><b>Contract NO.:</b></p>
         <p>{{ contract.contract_number }}</p>
       </div>
-      <div class="row">
+      <div class="info-field">
         <p><b>Total Weight:</b></p>
         <p>{{ contract.total_weight }}</p>
       </div>
-      <div class="row">
+      <div class="info-field">
         <p><b>Product CO.:</b></p>
         <p>{{ contract.company_code }}</p>
       </div>
-      <div class="row">
+      <div class="info-field">
         <p><b>Contract Date:</b></p>
         <p>{{ contract.contract_date }}</p>
       </div>
-    </div>
-    <div class="col">
-      <div class="row">
+      <div class="info-field">
         <p><b>Product:</b></p>
         <p>{{ contract.product }}</p>
       </div>
-      <div class="row">
+      <div class="info-field">
         <p><b>Restrictions:</b></p>
         <p>{{contract.restrictions}}</p>
       </div>
-      <div class="row">
+      <div class="info-field">
         <p><b>Operator:</b></p>
         <p>{{ contract.operator }}</p>
       </div>
-    </div>
-  </div>
-</section>
-<div class="border-line"></div>
-<section id="current-containers">
-  <div id="current-containers-parts">
-    <div class="container-headers">
+  </section>
+
+
       {% for master_container in contract.curr_containers %} 
       {% for container in master_container.distribution %}
       <div class="container">
         <div class="row">
           <div class="col-sm">
-            <p class="text-info"><b>Current Containers</b></p>
+            <p ><b>Current Containers</b></p>
+            
             <p>{{ container.container }}</p>
           </div>
           <div class="col-sm">
@@ -71,15 +165,15 @@
             </p>
           </div>
           <div class="col-sm">
-            <p class="text-info"><b>Tare WT</b></p>
+            <p ><b>Tare WT</b></p>
             <p>{{ container.weight }}</p>
           </div>
           <div class="col-sm">
-            <p class="text-info"><b>DISTR</b></p>
+            <p ><b>DISTR</b></p>
             <p>100%</p>
           </div>
           <div class="col-sm">
-            <p class="align-center text-info"><b>XFR</b></p>
+            <p class="align-center "><b>XFR</b></p>
             <a href="{% url 'queue' contract.id container.container|urlencode:"" %}">T</a>
           </div>
         </div>
@@ -91,22 +185,20 @@
     </div>
     {% endfor %} 
     {% endfor %}
-    <!-- <pre>{{ contract.curr_containers }}</pre> -->
-  </div>
-</section>
+
 <div class="border-line"></div>
 <section id="hyperlinks">
   <div class="container">
     <div class="row">
-      <div class="col-sm">
-        <a href="{% url 'containers' %}">Available Containers</a>
+      <div class="col-sm ">
+        <a href="{% url 'containers' %}" class="btn btn-primary" role="button">Available Containers</a>
       </div>
       <div class="col-sm">
-        <p class="align-center"><a href="#">Reallocate Containers</a></p>
+        <a href="" class="btn btn-primary" role="button">Reallocate Containers</a>
       </div>
-      <div class="col-sm">
+      <div class="col-sm ">
         <p class="align-center">
-          <a href="{% url 'grade_a'  %}">GRADE A - WWT</a>
+           <a id="back" href="{% url 'grade_a'  %}" class="btn btn-primary" role="button">GRADE A - WWT</a>
         </p>
       </div>
     </div>
