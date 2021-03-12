@@ -8,27 +8,27 @@
 
     <h1 style="text-align:center; color:#d9534f; margin-bottom: 1.1em">QUEUE</h1>
     <span>  </span>
-    <table class="table table-hover table-lg" style="width: 100%;">
-      <tr>
-        <thead class="thead-dark">
+    <table class="table table-bordered table-hover table-lg" style="width: 100%;">
+        <thead class="thead-dark" style="text-align: center;">
         <th scope="col">Company code</th>
         <th scope="col">Contract Number</th>
         <th scope="col">Operator</th>
         <th scope="col">Date</th>
         <th scope="col">Updated At</th>
         <th scope="col">View Summary</th>
-      </tr>
       </thead>
       {% for contract in contracts %}
       {% if contract.pend_containers %}
+      <tbody style="text-align: center;">
       <tr>
         <td scope="row">{{ contract.company_code }}</td>
         <td scope="row">{{ contract.contract_number }}</td>
         <td scope="row">{{ contract.operator }}</td>
         <td scope="row">{{ contract.contract_date }}</td>
         <td scope="row">{{ contract.contract_date_updated_at }}</td>
-        <td scope="row"><a href="{% url 'pending' contract.id %}">SELECT</a></td>
+        <td scope="row"><button type="button" class="btn btn-light"><a href="{% url 'contract_detail' contract.id %}">SELECT</a></button></td>
       </tr>
+    </tbody>
       {% endif %}
       {% endfor %}
 {% endblock content %}
