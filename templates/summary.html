@@ -3,8 +3,9 @@
 #title{
   text-align:center;
   position: relative;
-  top: -10px;
+  top: -50px;
 }
+
 #__pending section {
     padding: 0px 25px;
 }
@@ -65,7 +66,7 @@
 }
 #hyperlinks{
   position: relative;
-  left:100px;
+  left:20px;
 }
 @media(min-width: 1200px) {
     #__pending {
@@ -105,7 +106,7 @@
 {%block content %}
 <a href="{% url 'home' %}" class="btn btn-primary" role="button">BACK</a>
 <div id="__pending">
-    <h1 id="title"><b>VAST - Cargo Transfer SUMMARY</b></h1>
+    <h1 id="title"><b>FACT -Cargo Transfer SUMMARY</b></h1>
     <section id="contract-info">
       <div class="info-field">
         <p><b>Contract NO.:</b></p>
@@ -136,53 +137,35 @@
         <p>{{ contract.operator }}</p>
       </div>
   </section>
-
-
-      {% for master_container in contract.curr_containers %} 
-      {% for container in master_container.distribution %}
-      <div class="container">
-        <div class="row">
-          <div class="col-sm">
-            <p ><b>Current Containers</b></p>
-            
-            <p>{{ container.container }}</p>
-          </div>
-          <div class="col-sm">
-            <p></p>
-            <p>
-              <a
+{% for master_container in contract.curr_containers %} 
+{% for container in master_container.distribution %}
+<table class="table ">
+  <thead>
+    <tr>
+      <th scope="col">Current Containers</th>
+      <th scope="col">Bill of Lading</th>
+      <th scope="col">Chain of Custody</th>
+      <th scope="col">Tare WT</th>
+      <th scope="col">DISTR</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">{{ container.container }}</th>
+      <td><a
                 href="https://images.sampleforms.com/wp-content/uploads/2016/11/Blank-Bill-of-Lading-Form.jpg"
                 >BL144</a
-              >
-            </p>
-          </div>
-          <div class="col-sm">
-            <p></p>
-            <p>
-              <a href="https://www.pdffiller.com/preview/0/967/967335/large.png"
+              ></td>
+      <td><a href="https://www.pdffiller.com/preview/0/967/967335/large.png"
                 >COC</a
-              >
-            </p>
-          </div>
-          <div class="col-sm">
-            <p ><b>Tare WT</b></p>
-            <p>{{ container.weight }}</p>
-          </div>
-          <div class="col-sm">
-            <p ><b>DISTR</b></p>
-            <p>100%</p>
-          </div>
-          <div class="col-sm">
-            <p class="align-center "><b>XFR</b></p>
-            <a href="{% url 'queue' contract.id container.container|urlencode:"" %}">T</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container-info">
-      <div class="row"></div>
-    </div>
+              ></td>
+      <td>{{ container.weight }}</td>
+      <td><p>100%</p></td>
+      <td><a href="{% url 'queue' contract.id container.container|urlencode:"" %}" class="btn btn-outline-primary" role="button">Transfer</a></td>
+    </tr>
+  </tbody>
+</table>
     {% endfor %} 
     {% endfor %}
 
@@ -191,14 +174,14 @@
   <div class="container">
     <div class="row">
       <div class="col-sm ">
-        <a href="{% url 'containers' %}" class="btn btn-primary" role="button">Available Containers</a>
+        <a href="{% url 'containers' %}" class="btn btn-outline-primary" role="button">Available Containers</a>
       </div>
       <div class="col-sm">
-        <a href="" class="btn btn-primary" role="button">Reallocate Containers</a>
+        <a href="" class="btn btn-outline-primary" role="button">Reallocate Containers</a>
       </div>
       <div class="col-sm ">
         <p class="align-center">
-           <a id="back" href="{% url 'grade_a'  %}" class="btn btn-primary" role="button">GRADE A - WWT</a>
+           <a id="back" href="{% url 'grade_a'  %}" class="btn btn-outline-primary" role="button">GRADE A - WWT</a>
         </p>
       </div>
     </div>
