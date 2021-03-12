@@ -1,5 +1,107 @@
 <!-- Summary of Transfers with Pending Changes -->
+<style>
+  #title {
+    text-align: center;
+    position: relative;
+    top: -50px;
+  }
+.pend{
+  color:red;
+}
+#transfer{
+  position: relative;
+  bottom: 6px;
+}
+  #__pending section {
+    padding: 0px 25px;
+  }
 
+  /* Classes used all throughout */
+  #__pending .align-center {
+    text-align: center;
+  }
+
+  #__pending .align-end {
+    text-align: end;
+    text-align: center;
+  }
+
+
+  #__pending #contract-info {
+
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0px 125px;
+    margin-bottom: 15px;
+  }
+
+  #__pending #contract-info p {
+    position: relative;
+    left: 85px;
+    padding: 2px;
+    width: 200px;
+  }
+
+  /* 2nd box: Current Containers */
+  #__pending #current-containers {
+    margin-bottom: 10px;
+  }
+
+  #__pending .container-headers {
+    display: grid;
+    grid-template-columns: auto 75px 75px 100px 100px 65px;
+  }
+
+  #__pending .container-info {
+    margin: -30px 0px 0px;
+    display: grid;
+    grid-template-columns: auto 75px 75px 100px 100px 65px;
+  }
+
+  #__pending #total-row {
+    margin: -30px 0px 0px;
+    display: grid;
+    grid-template-columns: auto 75px 75px 100px 100px 65px;
+    grid-column-start: 2;
+  }
+
+  #__pending #total-row-header {
+    grid-column-start: 3;
+  }
+
+  @media(min-width: 1200px) {
+    #__pending {
+      margin: 50px auto;
+      width: 900px;
+    }
+  }
+
+  @media(max-width: 900px) {
+    #__pending {
+      margin: 50px auto;
+      width: 675px;
+    }
+
+    #__pending #contract-info {
+      grid-template-columns: auto;
+    }
+  }
+
+  @media(max-width: 675px) {
+    #__pending {
+      width: 100%;
+    }
+
+    #__pending .container-info {
+      grid-template-columns: auto auto auto auto auto 65px;
+    }
+
+    #__pending .container-headers {
+      grid-template-columns: auto auto auto auto auto 65px;
+    }
+
+  }
+</style>
 {% extends 'base.html' %}
 
 {% block title %}FACT Pending{% endblock title %}
@@ -8,6 +110,7 @@
 
 <!-- contract information -->
 <div id="__pending">
+  <a href="" class="btn btn-primary" role="button">BACK</a>
   <h1 id="title" class="text-center">FACT - Cargo Transfer PENDING</h1>
   <section id="contract-info">
     <div class="info-field">
@@ -41,89 +144,108 @@
   </section>
   <div class="border-line"></div>
 
-<!--Current Containers -->
-  
-<section id="current-containers">
-  <div id="current-containers-parts">
-    <div class="container-headers">
-      <p><b>Current Containers</b></p>
-      <p></p>
-      <p></p>
-      <p class="align-end"><b>Tare WT</b></p>
-      <p class="align-end"><b>DISTR</b></p>
-      <p class="align-center"><b>XFR</b></p>
-    </div>
-    {% for master_container in contract.curr_containers %}
-      {% for container in master_container.distribution %}
-        <div class="container-info">
-          <p>{{ container.container }}</p>
-          <p><a href="https://images.sampleforms.com/wp-content/uploads/2016/11/Blank-Bill-of-Lading-Form.jpg">BL144</a></p>
-          <p><a href="https://www.pdffiller.com/preview/0/967/967335/large.png">COC</a></p>
-          <p class="align-end">{{ container.weight }}</p>
-          <p class="align-end">100%</p>
-          <p class="align-center">
-            <a href="{% url 'queue' contract.id container.container|urlencode:"" %}">T</a>
-          </p>
-        </div>
-      {% endfor %}
-    {% endfor %}
-    <!-- <pre>{{ contract.curr_containers }}</pre> -->
-</div>
-<div class="border-line"></div>
-</section>
+  <!--Current Containers -->
+
+  {% for master_container in contract.curr_containers %}
+  {% for container in master_container.distribution %}
+  <table class="table ">
+    <thead>
+      <tr>
+        <th scope="col">Current Containers</th>
+        <th scope="col">Bill of Lading</th>
+        <th scope="col">Chain of Custody</th>
+        <th scope="col">Tare WT</th>
+        <th scope="col">DISTR</th>
+        <th> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{ container.container }}</th>
+        <td><a href="https://images.sampleforms.com/wp-content/uploads/2016/11/Blank-Bill-of-Lading-Form.jpg">BL144</a>
+        </td>
+        <td><a href="https://www.pdffiller.com/preview/0/967/967335/large.png">COC</a></td>
+        <td>{{ container.weight }}</td>
+        <td>
+          <p>100%</p>
+        </td>
+        <td><a href="{% url 'queue' contract.id container.container|urlencode:"" %}" class="btn btn-outline-primary" id="transfer" role="button">Transfer</a></td>
+      </tr>
+    </tbody>
+  </table>
+  {% endfor %}
+  {% endfor %}
 
   <!-- Pending Containers -->
-
-      <section id="pending-containers" class="text-red">
-        <div id="pending-containers-parts">
-          <div class="container-headers">
-            <p><b>Pending Containers</b></p>
-            <p></p>
-            <p></p>
-            <p class="align-end"><b>Tare WT</b></p>
-            <p class="align-end"><b>DISTR</b></p>
-          </div>
-          {% for master_container in contract.pend_containers %}
-            {% for container in master_container.distribution %}
-              {% if container.weight == 0 %}
-                {% for master_container in contract.curr_containers %}
-                  {% for c_container in master_container.distribution %}
-                    {% if container.container == c_container.container %}
-                      <div class="container-info">
-                        <p>{{ container.container }}</p>
-                        <p><a href="https://images.sampleforms.com/wp-content/uploads/2016/11/Blank-Bill-of-Lading-Form.jpg">BL144</a></p>
-                        <p><a href="https://www.pdffiller.com/preview/0/967/967335/large.png">COC</a></p>
-                        <p class="align-end">{{ container.weight }}</p>
-                        <p class="align-end">100%</p>
-                      </div>
-                    {% endif %}
-                  {% endfor%}
-                {% endfor%}
-              {% else %}
-                <div class="container-info">
-                  <p>{{ container.container }}</p>
-                  <p><a href="#">BL144</a></p>
-                  <p><a href="#">COC</a></p>
-                  <p class="align-end">{{ container.weight }}</p>
-                  <p class="align-end">100%</p>
-                </div>
-              {% endif %}
-            {% endfor %}
-          {% endfor %}
-          <!-- <pre>{{ contract.curr_containers }}</pre> -->
-      </div>
-    </section>
-
-    <!-- bottom links -->
-<div class="border-line"></div>
-  <section id="hyperlinks">
-    <p class="align-center"><a href="{% url 'containers' %}">Available Containers</a></p>
-    <p class="align-center"><a href="#">Reallocate Containers</a></p>
-    <p class="align-center"><a href="{% url 'pdf_view' contract.id %}">View PDF</a></p>
-    <p class="align-center"><a href="{% url 'grade_a'  %}">GRADE A - WWT</a></p>
-    <p class="align-center"><a href="#">Rebalance to New Weights</a></p>
-    <p class="align-center"><a href="{% url 'pdf_download' %}">Download PDF</a></p>
-  </section>
-
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" class="pend">Pending Containers</th>
+        <th scope="col" class="pend">Bill of Lading</th>
+        <th scope="col" class="pend">Chain of Custody</th>
+        <th scope="col" class="pend">Tare WT</th>
+        <th scope="col" class="pend">DISTR</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {% for master_container in contract.pend_containers %}
+        {% for container in master_container.distribution %}
+        {% if container.weight == 0 %}
+        {% for master_container in contract.curr_containers %}
+        {% for c_container in master_container.distribution %}
+        {% if container.container == c_container.container %}
+        <td>{{ container.container }}</td>
+        <td><a href="https://images.sampleforms.com/wp-content/uploads/2016/11/Blank-Bill-of-Lading-Form.jpg">BL144</a>
+        </td>
+        <td><a href="https://www.pdffiller.com/preview/0/967/967335/large.png">COC</a></td>
+        <td class="align-end">{{ container.weight }}</td>
+        <td class="align-end">100%</td>
+        <td></td>
+          </tr>
+      
+  {% endif %}
+  {% endfor%}
+  {% endfor%}
+  {% else %}
+    <div class="container-info">
+      <td>{{ container.container }}</td>
+      <td><a href="#">BL144</a></td>
+      <td><a href="#">COC</a></td>
+      <td class="align-end">{{ container.weight }}</td>
+      <td class="align-end">100%</td>
+      <td></td>
+    </div>
+  {% endif %}
+  {% endfor %}
+  {% endfor %}
+</tbody>
+  </table>
 </div>
-{% endblock content %}
+<!-- <pre>{{ contract.curr_containers }}</pre> -->
+<!-- bottom links -->
+
+<div class="container">
+  <div class="row">
+    <div class="col ">
+      <a href="{% url 'containers' %}" class="btn btn-outline-primary" role="button">Available Containers</a>
+    </div>
+    <div class="col">
+      <a href="" class="btn btn-outline-primary" role="button">Reallocate Containers</a>
+    </div>
+    <div class="col">
+      <a href="{% url 'pdf_view' contract.id %}" class="btn btn-outline-primary" role="button" target="_blank">View
+        Pending PDF</a>
+    </div>
+    <div class="col">
+      <a id="back" href="{% url 'grade_a'  %}" class="btn btn-outline-primary" role="button">GRADE A - WWT</a>
+    </div>
+    <div class="col">
+      <a href="" class="btn btn-outline-primary" role="button">Rebalance to New Weights</a>
+    </div>
+    <div class="col">
+      <a href="{% url 'pdf_download' %}" class="btn btn-outline-primary" role="button">Download PDF</a>
+    </div>
+
+    {% endblock content %}
