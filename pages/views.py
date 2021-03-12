@@ -3,7 +3,7 @@ from django.views.generic import TemplateView, UpdateView, DetailView, ListView
 from containers.models import Container
 from contracts.models import Contract
 from urllib.parse import unquote
-from contracts.forms import QueuedContainerForm
+from contracts.forms import QueuedContainerForm, ReallocateForm
 # htmltopdf
 from io import BytesIO
 from django.http import HttpResponse
@@ -73,6 +73,49 @@ class ContractUpdateView(UpdateView):
         context["from_container"] = get_list_or_404(
             Container,
             unit_descriptor=unquote(self.request.resolver_match.kwargs["container"]),
+            company_code=company.company_code,
+        )[0]
+        return context
+
+    # makes a new json with inserted information and adding it on (editing and saving)
+    def form_valid(self, form):
+        # print("Data: ", repr(form.cleaned_data.items()))
+        # print("TEST: ", repr(form.get_json))
+        # {"container": c, "weight": w}
+        # for c, w in form.cleaned_data.items()
+        # if w is not None
+        contract = self.get_object()
+        contract.pend_containers = form.get_json
+        contract.save()
+        return redirect("pending", contract.id)
+
+
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['company_containers'] = Container.objects.filter(
+            company_code=context['contract'].company_code
+        )
+        return context
+
+class ReallocateView(UpdateView):
+    # create view based off of the form
+    template_name = "reallocate.html"
+    model = Contract
+    form_class = ReallocateForm
+
+    # getting container assigned to specific contract
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["contract"] = kwargs.pop("instance")
+        return kwargs
+
+    # getting the context data/ fields from specific container
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        company = self.get_object()
+        context["from_container"] = get_list_or_404(
+            Container,
             company_code=company.company_code,
         )[0]
         return context

@@ -80,7 +80,7 @@
           </div>
           <div class="col-sm">
             <p class="align-center text-info"><b>XFR</b></p>
-            <a href="{% url 'queue' contract.id container.container|urlencode:"" %}">T</a>
+            <a href="{% url 'queue' contract.id container.container|urlencode:"" %}">Edit</a>
           </div>
         </div>
       </div>
@@ -102,7 +102,7 @@
         <a href="{% url 'containers' %}">Available Containers</a>
       </div>
       <div class="col-sm">
-        <p class="align-center"><a href="#">Reallocate Containers</a></p>
+        <p class="align-center"><a href="{% url 'reallocate' contract.id %}">Reallocate Containers</a></p>
       </div>
       <div class="col-sm">
         <p class="align-center">
