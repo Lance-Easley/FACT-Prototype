@@ -44,7 +44,14 @@
 
 <script>
   $(document).ready(function() {
-    $('#myTable').DataTable();
+    $('#myTable').DataTable({
+      language: {
+    paginate: {
+      next: '&#8594;', // or '→'
+      previous: '&#8592;' // or '←' 
+    }
+  }
+    });
 } );
 </script>
 {% endblock content %}
