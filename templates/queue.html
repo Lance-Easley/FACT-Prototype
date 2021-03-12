@@ -26,7 +26,7 @@
         <td scope="row">{{ contract.operator }}</td>
         <td scope="row">{{ contract.contract_date }}</td>
         <td scope="row">{{ contract.contract_date_updated_at }}</td>
-        <td scope="row"><button type="button" class="btn btn-light"><a href="{% url 'contract_detail' contract.id %}">SELECT</a></button></td>
+        <td scope="row"><button type="button" class="btn btn-light"><a href="{% url 'pending' contract.id %}">SELECT</a></button></td>
       </tr>
     </tbody>
       {% endif %}
