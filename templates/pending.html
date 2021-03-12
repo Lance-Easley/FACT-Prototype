@@ -160,14 +160,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr class="curr-containers">
         <th scope="row">{{ container.container }}</th>
         <td><a href="https://images.sampleforms.com/wp-content/uploads/2016/11/Blank-Bill-of-Lading-Form.jpg">BL144</a>
         </td>
         <td><a href="https://www.pdffiller.com/preview/0/967/967335/large.png">COC</a></td>
-        <td>{{ container.weight }}</td>
+        <td class="curr-container-weight">{{ container.weight }}</td>
         <td>
-          <p>100%</p>
+          <p class="curr-container-percent"></p>
         </td>
         <td><a href="{% url 'queue' contract.id container.container|urlencode:"" %}" class="btn btn-outline-primary" id="transfer" role="button">Transfer</a></td>
       </tr>
@@ -189,7 +189,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr class="pend-containers">
         {% for master_container in contract.pend_containers %}
         {% for container in master_container.distribution %}
         {% if container.weight == 0 %}
@@ -200,8 +200,8 @@
         <td><a href="https://images.sampleforms.com/wp-content/uploads/2016/11/Blank-Bill-of-Lading-Form.jpg">BL144</a>
         </td>
         <td><a href="https://www.pdffiller.com/preview/0/967/967335/large.png">COC</a></td>
-        <td class="align-end">{{ container.weight }}</td>
-        <td class="align-end">100%</td>
+        <td class="align-end pend-container-weight">{{ container.weight }}</td>
+        <td class="align-end pend-container-percent"></td>
         <td></td>
           </tr>
       
@@ -213,8 +213,8 @@
       <td>{{ container.container }}</td>
       <td><a href="#">BL144</a></td>
       <td><a href="#">COC</a></td>
-      <td class="align-end">{{ container.weight }}</td>
-      <td class="align-end">100%</td>
+      <td class="align-end pend-container-weight">{{ container.weight }}</td>
+      <td class="align-end pend-container-percent"></td>
     </div>
   {% endif %}
   {% endfor %}
@@ -246,5 +246,20 @@
     <div class="col">
       <a href="{% url 'pdf_download' %}" class="btn btn-outline-primary" role="button">Download PDF</a>
     </div>
-
-    {% endblock content %}
+<script>
+  const total_weight = Number({{ contract.total_weight }});
+  const curr_containers = document.querySelectorAll(".curr-containers");
+  const pend_containers = document.querySelectorAll(".pend-containers");
+  
+  for (const container of curr_containers) { 
+    const container_weight = Number(container.querySelector(".curr-container-weight").innerHTML)
+    const container_percent = container.querySelector(".curr-container-percent")
+    container_percent.innerText = Number((container_weight / total_weight) * 100).toFixed(3) + "%"
+  }
+  for (const container of pend_containers) { 
+    const container_weight = Number(container.querySelector(".pend-container-weight").innerHTML)
+    const container_percent = container.querySelector(".pend-container-percent")
+    container_percent.innerText = Number((container_weight / total_weight) * 100).toFixed(3) + "%"
+  }
+</script>
+{% endblock content %}
