@@ -32,9 +32,9 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="{% url 'home' %}">FACT</a>
+      {% url 'home' as url %} 
       <button
-        class="navbar-toggler"
+        class="navbar-toggler {% if request.path == url %}active{% endif %}"
         type="button"
         data-toggle="collapse"
         data-target="#navbarSupportedContent"
@@ -44,17 +44,22 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
+      <a class="navbar-brand" href="{{ url }}">FACT</a>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <!-- <li class="nav-item">
             <a class="nav-link" href="{% url 'home' %}">CONTRACTS</a>
           </li> -->
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'queue_list' %}">QUEUED</a>
+      
+          {% url 'queue_list' as url %}
+          <li class="nav-item {% if request.path == url %}active{% endif %}">
+            <a class="nav-link" href="{{ url }}">QUEUED</a>
+            <!-- <a class="nav-link active" href="{% url 'queue_list' %}">QUEUED</a> -->
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'containers' %}">CONTAINERS</a>
+          {% url 'containers' as url %}
+          <li class="nav-item {% if request.path == url %}active{% endif %}">
+            <a class="nav-link" href="{{ url }}">CONTAINERS</a>
           </li>
         </ul>
       </div>
