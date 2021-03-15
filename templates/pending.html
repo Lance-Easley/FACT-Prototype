@@ -231,7 +231,7 @@
       <a href="{% url 'containers' %}" class="btn btn-outline-primary" role="button">Available Containers</a>
     </div>
     <div class="col">
-      <a href="" class="btn btn-outline-primary" role="button">Reallocate Containers</a>
+      <a href="{% url 'reallocate' contract.id %}" class="btn btn-outline-primary" role="button">Reallocate Containers</a>
     </div>
     <div class="col">
       <a href="{% url 'pdf_view' contract.id %}" class="btn btn-outline-primary" role="button" target="_blank">View

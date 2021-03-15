@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Containers</title>
-
-</head>
-<body>
-  {% extends 'base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}All containers{% endblock title %}
 
 {% block content %}
-<h1 style="margin-bottom: 1.1em; text-align:center; color:#0275d8">ALL AVAILABLE CONTAINERS</h1>
-<table class="table table-bordered table-hover table-sm" style="width: 100%;" id="myTable">
+<h1 style="margin: 0.9em 0em 1.1em; text-align:center; color:#0275d8">ALL AVAILABLE CONTAINERS</h1>
+<table class="display table table-bordered table-hover table-sm" style="width: 100%;" id="myTable">
     <thead class="thead-dark" style="text-align: center;">
 
       <tr>
@@ -46,18 +36,15 @@
   $(document).ready(function() {
     $('#myTable').DataTable({
       language: {
-    paginate: {
-      next: '&#8594;', // or '→'
-      previous: '&#8592;' // or '←' 
-    }
-  }
+        paginate: {
+          next: '&#8594;', // or '→'
+          previous: '&#8592;' // or '←' 
+        }
+      }
     });
-} );
+  });
 </script>
 {% endblock content %}
-
-</body>
-</html>
 
 
 
