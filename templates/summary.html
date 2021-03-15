@@ -137,8 +137,7 @@
         <p>{{ contract.operator }}</p>
       </div>
   </section>
-{% for master_container in contract.curr_containers %} 
-{% for container in master_container.distribution %}
+
 <table class="table ">
   <thead>
     <tr>
@@ -151,6 +150,8 @@
     </tr>
   </thead>
   <tbody>
+    {% for master_container in contract.curr_containers %} 
+{% for container in master_container.distribution %}
     <tr class="curr-containers">
       <th scope="row">{{ container.container }}</th>
       <td><a
@@ -164,10 +165,11 @@
       <td><p class="curr-container-percent"></p></td>
       <td><a href="{% url 'queue' contract.id container.container|urlencode:"" %}" class="btn btn-outline-primary" role="button">Transfer</a></td>
     </tr>
-  </tbody>
-</table>
     {% endfor %} 
     {% endfor %}
+  </tbody>
+</table>
+    
 
 <div class="border-line"></div>
 <section id="hyperlinks">

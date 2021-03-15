@@ -110,8 +110,9 @@
 
 <!-- contract information -->
 <div id="__pending">
-  <h1 id="title" class="text-center">FACT - Cargo Transfer PENDING</h1>
   <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary">Back</a>
+  <h1 id="title" class="text-center">FACT - Cargo Transfer PENDING</h1>
+  
   <section id="contract-info">
     <div class="info-field">
       <p><b>Contract NO.:</b></p>
@@ -146,8 +147,7 @@
 
   <!--Current Containers -->
 
-  {% for master_container in contract.curr_containers %}
-  {% for container in master_container.distribution %}
+  
   <table class="table ">
     <thead>
       <tr>
@@ -159,7 +159,10 @@
         <th> </th>
       </tr>
     </thead>
+    
     <tbody>
+      {% for master_container in contract.curr_containers %}
+      {% for container in master_container.distribution %}
       <tr class="curr-containers">
         <th scope="row">{{ container.container }}</th>
         <td><a href="https://images.sampleforms.com/wp-content/uploads/2016/11/Blank-Bill-of-Lading-Form.jpg">BL144</a>
@@ -171,10 +174,11 @@
         </td>
         <td><a href="{% url 'queue' contract.id container.container|urlencode:"" %}" class="btn btn-outline-primary" id="transfer" role="button">Transfer</a></td>
       </tr>
+      {% endfor %}
+  {% endfor %}
     </tbody>
   </table>
-  {% endfor %}
-  {% endfor %}
+  
 
   <!-- Pending Containers -->
   <table class="table">
@@ -189,14 +193,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="pend-containers">
-        {% for master_container in contract.pend_containers %}
+      {% for master_container in contract.pend_containers %}
         {% for container in master_container.distribution %}
         {% if container.weight == 0 %}
         {% for master_container in contract.curr_containers %}
         {% for c_container in master_container.distribution %}
         {% if container.container == c_container.container %}
         <td>{{ container.container }}</td>
+      <tr class="pend-containers">
         <td><a href="https://images.sampleforms.com/wp-content/uploads/2016/11/Blank-Bill-of-Lading-Form.jpg">BL144</a>
         </td>
         <td><a href="https://www.pdffiller.com/preview/0/967/967335/large.png">COC</a></td>
@@ -216,10 +220,10 @@
       <td class="align-end pend-container-weight">{{ container.weight }}</td>
       <td class="align-end pend-container-percent"></td>
     </div>
-  {% endif %}
-  {% endfor %}
-  {% endfor %}
 </tbody>
+{% endif %}
+  {% endfor %}
+  {% endfor %}
   </table>
 </div>
 <!-- <pre>{{ contract.curr_containers }}</pre> -->
