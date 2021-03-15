@@ -258,18 +258,6 @@
       >
     </div>
     <div class="col">
-      <a href="{% url 'reallocate' contract.id %}" class="btn btn-outline-primary" role="button">Reallocate Containers</a>
-    </div>
-    <div class="col">
-      <a
-        href="{% url 'pdf_view' contract.id %}"
-        class="btn btn-outline-primary"
-        role="button"
-        target="_blank"
-        >View Pending PDF</a
-      >
-    </div>
-    <div class="col">
       <a
         id="back"
         href="{% url 'grade_a'  %}"
@@ -279,8 +267,22 @@
       >
     </div>
     <div class="col">
+      <a href="{% url 'reallocate' contract.id %}" class="btn btn-outline-primary" role="button">Reallocate Containers</a>
+    </div>
+    
+    <div class="col">
       <a href="" class="btn btn-outline-primary" role="button"
         >Rebalance to New Weights</a
+      >
+      
+    </div>
+    <div class="col">
+      <a
+        href="{% url 'pdf_view' contract.id %}"
+        class="btn btn-outline-primary btn-"
+        role="button"
+        target="_blank"
+        >View Pending PDF</a
       >
     </div>
     <div class="col">
