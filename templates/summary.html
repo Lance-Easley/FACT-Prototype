@@ -5,7 +5,12 @@
   position: relative;
   top: -50px;
 }
-
+#trans{
+  margin: 0;
+  position: relative;
+  bottom: 30px;
+  left: 350px;
+}
 #__pending section {
     padding: 0px 25px;
 }
@@ -141,6 +146,7 @@
 <table class="table ">
   <thead>
     <tr>
+       {% if contract.curr_containers != null %}
       <th scope="col">Current Containers</th>
       <th scope="col">Bill of Lading</th>
       <th scope="col">Chain of Custody</th>
@@ -150,8 +156,9 @@
     </tr>
   </thead>
   <tbody>
+   
     {% for master_container in contract.curr_containers %} 
-{% for container in master_container.distribution %}
+    {% for container in master_container.distribution %}
     <tr class="curr-containers">
       <th scope="row">{{ container.container }}</th>
       <td><a
@@ -167,9 +174,13 @@
     </tr>
     {% endfor %} 
     {% endfor %}
+    {% endif %}
   </tbody>
 </table>
-    
+     {% if contract.curr_containers == null %}
+     <a href="" id="trans" class="btn btn-outline-primary" role="button">Reallocate Weight</a>
+     {% endif %}
+     
 
 <div class="border-line"></div>
 <section id="hyperlinks">
