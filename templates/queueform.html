@@ -1,5 +1,55 @@
 <!-- Transfer Form -->
+<style>
+  /* Root tag edits */
+:root {
+    font-family: Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+}
+p{
+  padding: 10px;
+}
+body {
+    margin: 50px 50px;
+}
 
+section {
+    padding: 0px 20px;
+}
+/* Classes used all throughout */
+.align-center {
+    text-align: center;
+}
+
+.align-end {
+    text-align: end;
+}
+
+/* 1st box: title and contract info */
+#title {
+    padding: 0px 10px;
+    color: brown;    
+    text-align: center;
+}
+
+#contract-info {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0px 200px;
+    margin-bottom: 15px;
+    border-color: coral;
+}
+
+#contract-info p {
+    width: 200px;
+}
+
+.info-field {
+    display: grid;
+    grid-template-columns: 125px 100px;
+    margin: -18px 0px;
+}
+
+</style>
 {% extends 'base.html' %}
 
 {% block title %}FACT Pending{% endblock title %}
@@ -13,7 +63,7 @@
       <p><b>Transferring From: </b></p>
     </div>
     <div class="info-field">
-      <p><b>Weight</b></p>
+      <p><b>Weight: </b></p>
     </div>
     <div class="info-field">
       <p>{{ form.from_container }}</p>
