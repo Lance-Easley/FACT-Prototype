@@ -5,6 +5,11 @@
     font-family: Calibri, 'Trebuchet MS', sans-serif;
 
 }
+#trans{
+  position: relative;
+  left: 500px;
+  top: 15px;
+}
 p{
   padding: 10px;
 }
@@ -86,7 +91,7 @@ section {
         </div>
       {% endfor %}
     </table>
-    <button style="font-size: 2rem; margin: auto">Transfer</button>
+    <button id="trans" style="font-size: 2rem; margin: auto ">Transfer</button>
   </form>
   <script>
     const controlContainer = document.querySelector(
