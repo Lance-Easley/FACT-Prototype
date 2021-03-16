@@ -1,15 +1,17 @@
 from django.shortcuts import get_list_or_404, redirect, render
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView, UpdateView, DetailView, ListView
 from containers.models import Container
 from contracts.models import Contract
 from urllib.parse import unquote
-from contracts.forms import QueuedContainerForm, ReallocateForm
+from contracts.forms import QueuedContainerForm, ReallocateForm, ClearPendingForm
 # htmltopdf
 from io import BytesIO
 from django.http import HttpResponse
 from django.template.loader import get_template
 from django.views import View
 from xhtml2pdf import pisa
+
 
 def render_to_pdf(template_src, context_dict={}):
 	template = get_template(template_src)
@@ -156,3 +158,20 @@ class ContractDetailView(DetailView):
 class GradeAListView(ListView):
     model = Container
     template_name = 'grade_a.html'
+
+
+class ClearPendingView(UpdateView):
+    model = Contract
+    template_name = 'clear_pending.html'
+    form_class = ClearPendingForm
+ 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["contract"] = kwargs.pop("instance")
+        return kwargs
+
+    def form_valid(self, form):
+        contract = self.get_object()
+        contract.pend_containers = None
+        contract.save()
+        return redirect("contract_detail", contract.id)

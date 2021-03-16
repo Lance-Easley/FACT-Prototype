@@ -246,6 +246,12 @@
     <div class="col">
       <a href="{% url 'pdf_download' %}" class="btn btn-outline-primary" role="button">Download PDF</a>
     </div>
+    <div class="col">
+      <a href="{% url 'clear_pending' contract.id %}" class="btn btn-outline-primary" role="button">Clear Pending</a>
+    </div>
+    </div>
+    </div>
+    
 <script>
   const total_weight = Number({{ contract.total_weight }});
   const curr_containers = document.querySelectorAll(".curr-containers");

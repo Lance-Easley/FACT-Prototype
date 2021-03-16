@@ -1,0 +1,12 @@
+{% extends 'base.html' %} 
+
+{% block content %} 
+<h1>Are you sure you want to clear all pending containers for this contract?</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Yes</button>
+    <a href="{% url 'pending' contract.id %}" class="btn btn-outline-primary" role="button">NO</a>
+</form>
+
+{% endblock content %}
