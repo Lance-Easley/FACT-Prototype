@@ -5,14 +5,11 @@
 {% block title %}FACT Pending{% endblock title %}
 
 {% block content %}
+<button class="btn btn-primary" onclick="window.history.back()">BACK</button>
 <div id="__queueform">
-  <h1 id="title">REALLOCATE REMAINING</h1>
-  <section id="contract-info" class= "border-line">
+  <h1 style="text-align: center;">REALLOCATE REMAINING</h1>
     <div class="info-field">
-      <p><b>Weight</b></p>
-    </div>
-    <div class="info-field">
-      <p>{{ form.contract_weight_left }}</p>
+      <p style="text-align: center;"><b>Weight: {{ form.contract_weight_left }}</p>
     </div>
   </section>
 
