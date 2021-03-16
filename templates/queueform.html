@@ -1,18 +1,74 @@
 <!-- Transfer Form -->
+<style>
+  /* Root tag edits */
+:root {
+    font-family: Calibri, 'Trebuchet MS', sans-serif;
 
+}
+#trans{
+  position: relative;
+  left: 500px;
+  top: 15px;
+}
+p{
+  padding: 10px;
+}
+body {
+    margin: 50px 50px;
+}
+
+section {
+    padding: 0px 20px;
+}
+/* Classes used all throughout */
+.align-center {
+    text-align: center;
+}
+
+.align-end {
+    text-align: end;
+}
+
+/* 1st box: title and contract info */
+#title {
+    padding: 0px 10px;
+    color: brown;    
+    text-align: center;
+}
+
+#contract-info {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0px 200px;
+    margin-bottom: 15px;
+    border-color: coral;
+}
+
+#contract-info p {
+    width: 200px;
+}
+
+.info-field {
+    display: grid;
+    grid-template-columns: 125px 100px;
+    margin: -18px 0px;
+}
+
+</style>
 {% extends 'base.html' %}
 
 {% block title %}FACT Pending{% endblock title %}
 
 {% block content %}
 <div id="__queueform">
+  <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary">Back</a>
   <h1 id="title">QUEUE FORM</h1>
   <section id="contract-info" class= "border-line">
     <div class="info-field">
       <p><b>Transferring From: </b></p>
     </div>
     <div class="info-field">
-      <p><b>Weight</b></p>
+      <p><b>Weight: </b></p>
     </div>
     <div class="info-field">
       <p>{{ form.from_container }}</p>
@@ -35,7 +91,7 @@
         </div>
       {% endfor %}
     </table>
-    <button style="font-size: 2rem; margin: auto">Transfer</button>
+    <button id="trans" style="font-size: 2rem; margin: auto ">Transfer</button>
   </form>
   <script>
     const controlContainer = document.querySelector(
