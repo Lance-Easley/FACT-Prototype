@@ -37,8 +37,10 @@ class DownloadPDF(View):
 		return response
 
 # Create your views here.
-class TestTemplateView(TemplateView):
+class HomePageView(TemplateView):
     template_name = 'home.html'
+class TestTemplateView(TemplateView):
+    template_name = 'contracts.html'
 
 class ContainerListView(ListView):
     model = Container
@@ -47,7 +49,7 @@ class ContainerListView(ListView):
 class ContractsListView(ListView):
     model = Contract
     context_object_name = "contracts"
-    template_name = 'home.html'
+    template_name = 'contracts.html'
 
 class QueuedContractsListView(ListView):
     model = Contract

@@ -50,10 +50,10 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="{% url 'home' %}">CONTRACTS</a>
-          </li> -->
-      
+          {% url 'contracts' as url %}
+          <li class="nav-item {% if request.path == url %}active{% endif %}">
+            <a class="nav-link" href="{{ url }}">CONTRACTS</a>
+          </li>
           {% url 'queue_list' as url %}
           <li class="nav-item {% if request.path == url %}active{% endif %}">
             <a class="nav-link" href="{{ url }}">QUEUED</a>

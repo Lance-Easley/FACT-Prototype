@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import TestTemplateView, ContractsListView, ContractDetailView, ContractUpdateView, ContractPendingDetailView, ContainerListView, QueuedContractsListView, GradeAListView, ReallocateView, ClearPendingView
+from .views import TestTemplateView, ContractsListView, ContractDetailView, ContractUpdateView, ContractPendingDetailView, ContainerListView, QueuedContractsListView, GradeAListView, ReallocateView, ClearPendingView, HomePageView
 from . import views
 urlpatterns = [
-    path('', ContractsListView.as_view(), name='home'),
+    path('', HomePageView.as_view(), name='home'),
+    path('contracts/', ContractsListView.as_view(), name='contracts'),
     path('queue/', QueuedContractsListView.as_view(), name='queue_list'),
     path("contract/<int:pk>/", ContractDetailView.as_view(), name="contract_detail"),
     path(
