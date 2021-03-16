@@ -3,7 +3,8 @@
 {% block title %}All containers{% endblock title %}
 
 {% block content %}
-<a href="{% url 'home' %}" class="btn btn-primary" role="button">BACK</a>
+<button class="btn btn-primary" onclick="window.history.back()">BACK</button>
+
 <h1 style="margin: 0.9em 0em 1.1em; text-align:center; color:#0275d8">ALL AVAILABLE CONTAINERS</h1>
 <table class="display table table-bordered table-hover table-sm" style="width: 100%;" id="myTable">
     <thead class="thead-dark" style="text-align: center;">

@@ -61,7 +61,7 @@ section {
 
 {% block content %}
 <div id="__queueform">
-  <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary">Back</a>
+  <button class="btn btn-primary" onclick="window.history.back()">BACK</button>
   <h1 id="title">QUEUE FORM</h1>
   <section id="contract-info" class= "border-line">
     <div class="info-field">
