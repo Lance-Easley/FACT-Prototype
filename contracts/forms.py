@@ -1,6 +1,8 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from containers.models import Container
+from django.shortcuts import get_object_or_404, redirect, render
+from contracts.models import Contract
 import json
 
 # --- JSON FORMAT GUIDE ---
@@ -339,3 +341,11 @@ class ReallocateForm(forms.Form):
                 transfer["distribution"] = distrib
         print("a: ", self.json)
         return json.loads(str(self.json).replace("'", '"'))
+
+class ClearPendingForm(forms.Form):
+    def __init__(self, contract, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.contract = contract
+    def clear_pending(request, id):
+        contract.pend_containers = None
+

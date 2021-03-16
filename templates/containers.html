@@ -3,6 +3,7 @@
 {% block title %}All containers{% endblock title %}
 
 {% block content %}
+<a href="{% url 'home' %}" class="btn btn-primary" role="button">BACK</a>
 <h1 style="margin: 0.9em 0em 1.1em; text-align:center; color:#0275d8">ALL AVAILABLE CONTAINERS</h1>
 <table class="display table table-bordered table-hover table-sm" style="width: 100%;" id="myTable">
     <thead class="thead-dark" style="text-align: center;">
@@ -25,8 +26,8 @@
         <td scope="row">{{ container.unit_code }}</td>
         <td scope="row">{{ container.restrict_code }}</td>
         <td scope="row">{{container.rating}}</td>
-        <td scope="row"><button type="button" class="btn btn-light"><a href="https://images.sampleforms.com/wp-content/uploads/2016/11/Blank-Bill-of-Lading-Form.jpg">BL</a></button></td>
-        <td scope="row"><button type="button" class="btn btn-light"><a href="https://www.pdffiller.com/preview/0/967/967335/large.png">COC</a></button></td>
+        <td scope="row"><button type="button" class="btn btn-light"><a href="https://images.sampleforms.com/wp-content/uploads/2016/11/Blank-Bill-of-Lading-Form.jpg" target="_blank">BL</a></button></td>
+        <td scope="row"><button type="button" class="btn btn-light"><a href="https://www.pdffiller.com/preview/0/967/967335/large.png" target="_blank">COC</a></button></td>
         {% endfor %}
       </tr>
     </tbody>

@@ -155,12 +155,12 @@
         <th scope="row">{{ container.container }}</th>
         <td>
           <a
-            href="https://images.sampleforms.com/wp-content/uploads/2016/11/Blank-Bill-of-Lading-Form.jpg"
+            href="https://images.sampleforms.com/wp-content/uploads/2016/11/Blank-Bill-of-Lading-Form.jpg" target="_blank"
             >BL144</a
           >
         </td>
         <td>
-          <a href="https://www.pdffiller.com/preview/0/967/967335/large.png"
+          <a href="https://www.pdffiller.com/preview/0/967/967335/large.png" target="_blank"
             >COC</a
           >
         </td>
@@ -255,8 +255,6 @@
       const total_weight = Number(document.querySelector("#weight").textContent);
       const curr_containers = document.querySelectorAll(".curr-containers");
       const pend_containers = document.querySelectorAll(".pend-containers");
-      console.log(curr_containers)
-      console.log(pend_containers)
 
       for (const container of curr_containers) {
         const container_weight = Number(container.getElementsByClassName("curr-container-weight")[0].textContent)
