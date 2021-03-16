@@ -65,7 +65,7 @@ section {
   <h1 id="title">QUEUE FORM</h1>
   <section id="contract-info" class= "border-line">
     <div class="info-field">
-      <p><b>Transferring From: </b></p>
+      <p><b>Root Container: </b></p>
     </div>
     <div class="info-field">
       <p><b>Weight: </b></p>
@@ -74,7 +74,7 @@ section {
       <p>{{ form.from_container }}</p>
     </div>
     <div class="info-field">
-      <p>{{ form.from_container_weight }}</p>
+      <p id="weight">{{ form.transfer_weight }}</p>
     </div>
   </section>
 
@@ -96,9 +96,9 @@ section {
   <script>
     const controlContainer = document.querySelector(
       ".container-control-container"
-    );
-    const totalWeight = {{ form.from_container_weight }};
+      );
     const controls = document.querySelectorAll(".container-control");
+    const totalWeight = document.querySelector("#weight").innerHTML;
     
     for (const control of controls) { 
       const percentInput = control.querySelector(
