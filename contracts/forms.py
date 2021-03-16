@@ -96,35 +96,22 @@ class QueuedContainerForm(forms.Form):
                     j_content = {"container": from_container, "distribution": j_list}
                     self.json.append(j_content)
                 self.container_weights.update(entry)
-
-        self.from_container_weight = int(self.container_weights[from_container])
         # Generate Integer fields for each container that belongs to the contract's company
         for c in Container.objects.filter(company_code=contract.company_code):
             self.fields[c.unit_descriptor] = forms.IntegerField(
-                required=True, initial=self.container_weights.get(c.unit_descriptor, 0)
+                required=False, initial=self.container_weights.get(c.unit_descriptor)
             )
 
     @property
-    def contract_weight(self):
+    def transfer_weight(self):
         # Sum all allocated weight so that users can exceed a container's original weight, but not the contract's total weight remaining
         total = 0
-        containers_with_weight = []
-        # Sum all weights in pend_containers first
-        for transfer in self.contract.pend_containers:
-            for distrib in transfer["distribution"]:
-                weight = distrib["weight"]
-                total += weight
-                if weight > 0:
-                    containers_with_weight.append(distrib["container"])
-        # if the pending container's weights do not take up full weight, grab from the unedited curr_containers
-        if total != self.contract.total_weight:
-            for transfer in self.contract.pend_containers:
+        # Sum all weights in curr_containers
+        for transfer in self.contract.curr_containers:
+            if transfer["container"] == self.from_container:
                 for distrib in transfer["distribution"]:
-                    weight = distrib["weight"]
-                    if distrib["container"] not in containers_with_weight:
-                        total += weight
-                        if weight > 0:
-                            containers_with_weight.append(distrib["container"])
+                    weight = int(distrib["weight"])
+                    total += weight
         return total
 
 
@@ -139,7 +126,7 @@ class QueuedContainerForm(forms.Form):
             cleaned_data.get(c, 0) or 0 for c in company_containers
         )
         if self.contract.pend_containers:
-            weight = self.contract_weight
+            weight = self.transfer_weight
         else:
             weight = self.contract.total_weight
         if pending_weight_total > weight:
@@ -155,13 +142,20 @@ class QueuedContainerForm(forms.Form):
     @property
     def get_json(self):
         # Returns full JSON string to be stored in pend_containers feild
+        print("\n", self.cleaned_data.items())
+        print("from: ", repr(self.from_container))
         for transfer in self.json:
             if transfer["container"] == self.from_container:
-                distrib = [
-                    {"container": c, "weight": w}
-                    for c, w in self.cleaned_data.items()
-                    if w is not None
-                ]
+                distrib = []
+                for c, w in self.cleaned_data.items():
+                    print(repr(w))
+                    if w == None or w == 0:
+                        if c == self.from_container:
+                            distrib.append({"container": c, "weight": 0})
+                    else:
+                        distrib.append({"container": c, "weight": w})
+
+                print(distrib, "\n")
                 transfer["distribution"] = distrib
         return json.loads(str(self.json).replace("'", '"'))
 
@@ -251,7 +245,7 @@ class ReallocateForm(forms.Form):
         for c in Container.objects.filter(company_code=contract.company_code):
             if self.container_weights.get(c.unit_descriptor) == '0':
                 self.fields[c.unit_descriptor] = forms.IntegerField(
-                    required=False, initial=self.container_weights.get(c.unit_descriptor, 0)
+                    required=False, initial=self.container_weights.get(c.unit_descriptor)
                 )
 
     @property
@@ -340,7 +334,7 @@ class ReallocateForm(forms.Form):
                 distrib = [
                     {"container": c, "weight": w}
                     for c, w in self.cleaned_data.items()
-                    if w is not None
+                    if w is not None or w != 0
                 ]
                 transfer["distribution"] = distrib
         print("a: ", self.json)
