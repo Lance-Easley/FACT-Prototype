@@ -251,6 +251,14 @@
         >Download PDF</a
       >
     </div>
+    <div class="col">
+      <a
+        href="{% url 'clear_pending' contract.id %}"
+        class="btn btn-outline-primary"
+        role="button"
+        >Clear Pending</a
+      >
+    </div>
     <script>
       const total_weight = Number(document.querySelector("#weight").textContent);
       const curr_containers = document.querySelectorAll(".curr-containers");

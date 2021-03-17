@@ -100,8 +100,10 @@ class QueuedContainerForm(forms.Form):
                 self.container_weights.update(entry)
         # Generate Integer fields for each container that belongs to the contract's company
         for c in Container.objects.filter(company_code=contract.company_code):
-            self.fields[c.unit_descriptor] = forms.IntegerField(
-                required=False, initial=self.container_weights.get(c.unit_descriptor)
+            self.fields[c.unit_descriptor] = forms.FloatField(
+                required=False, 
+                initial=self.container_weights.get(c.unit_descriptor), 
+                widget=forms.TextInput(attrs={'class': 'form-control'})
             )
 
     @property
@@ -135,6 +137,8 @@ class QueuedContainerForm(forms.Form):
             print("Pend: ", pending_weight_total)
             print("Weight: ", weight)
             print("Container weights must total to the contract's total weight.")
+            self.errors["total"] = "Container weights must total to the contract's total weight."
+            print(repr(self.errors))
             raise ValidationError(
                 "Container weights must total to the contract's total weight."
             )
@@ -246,9 +250,11 @@ class ReallocateForm(forms.Form):
         # Generate Integer fields for each container that belongs to the contract's company
         for c in Container.objects.filter(company_code=contract.company_code):
             if self.container_weights.get(c.unit_descriptor) == '0':
-                self.fields[c.unit_descriptor] = forms.IntegerField(
-                    required=False, initial=self.container_weights.get(c.unit_descriptor)
-                )
+                self.fields[c.unit_descriptor] = forms.FloatField(
+                required=False, 
+                initial=self.container_weights.get(c.unit_descriptor), 
+                widget=forms.TextInput(attrs={'class': 'form-control'})
+            )
 
     @property
     def contract_weight_left(self):
@@ -304,6 +310,7 @@ class ReallocateForm(forms.Form):
             print("Pend: ", pending_weight_total)
             print("Weight: ", weight)
             print("Container weights must total to the contract's total weight.")
+            self.errors["total"] = "Container weights must total to the contract's total weight."
             raise ValidationError(
                 "Container weights must total to the contract's total weight."
             )
