@@ -19,7 +19,7 @@ urlpatterns = [
     path("containers/", ContainerListView.as_view(), name="containers"),
     path("contract/<int:pk>/pending", ContractPendingDetailView.as_view(), name="pending"),
     path('pdf_view/<int:pk>', views.ViewPDF.as_view(), name="pdf_view"),
-    path('pdf_download/', views.DownloadPDF.as_view(), name="pdf_download"),
+    path('pdf_download/<int:pk>', views.DownloadPDF.as_view(), name="pdf_download"),
     path('top/', GradeAListView.as_view(), name="grade_a" ),
     path('contract/<int:pk>/pending/clear', ClearPendingView.as_view(), name='clear_pending'),
 ]
