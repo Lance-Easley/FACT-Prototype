@@ -143,11 +143,13 @@ section {
       const weightInput = control.querySelector("input[name]");
       weightInput.addEventListener("input", () => {
         percentInput.value = ((Number(weightInput.value) / totalWeight) * 100).toFixed(3);
+        console.log(percentInput.value)
         remainingWeight.innerHTML = calculateWeightRemaining(controls, totalWeight)
       });
       percentInput.value = ((Number(weightInput.value) / totalWeight) * 100).toFixed(3);
       percentInput.addEventListener("input", () => {
-        weightInput.value = Math.round((totalWeight * Number(percentInput.value)) / 100);
+        weightInput.value = ((totalWeight * Number(percentInput.value)) / 100).toFixed(3);
+        console.log(weightInput.value)
         remainingWeight.innerHTML = calculateWeightRemaining(controls, totalWeight)
       });
     }
