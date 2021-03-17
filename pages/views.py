@@ -93,8 +93,6 @@ class ContractUpdateView(UpdateView):
         contract.save()
         return redirect("pending", contract.id)
 
-
-
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['company_containers'] = Container.objects.filter(
