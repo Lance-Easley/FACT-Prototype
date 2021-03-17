@@ -199,6 +199,13 @@
       </tr>
       {% endfor %} 
       {% endfor %}
+      <tr>
+        <td></td>
+        <td></td>
+        <th class="pend">Total</th>
+        <td><p id="weight-total"></p></td>
+        <td><p id="percent-total"></p></td>
+      </tr>
     </tbody>
   </table>
 </div>
@@ -226,13 +233,6 @@
     </div>
     <div class="col">
       <a href="{% url 'reallocate' contract.id %}" class="btn btn-outline-primary" role="button">Reallocate Containers</a>
-    </div>
-    
-    <div class="col">
-      <a href="" class="btn btn-outline-primary" role="button"
-        >Rebalance to New Weights</a
-      >
-      
     </div>
     <div class="col">
       <a
@@ -263,6 +263,10 @@
       const total_weight = Number(document.querySelector("#weight").textContent);
       const curr_containers = document.querySelectorAll(".curr-containers");
       const pend_containers = document.querySelectorAll(".pend-containers");
+      const weight_total_entry = document.querySelector("#weight-total");
+      const percent_total_entry = document.querySelector("#percent-total");
+      var weight_total = 0;
+      var percent_total = 0;
 
       for (const container of curr_containers) {
         const container_weight = Number(container.getElementsByClassName("curr-container-weight")[0].textContent)
@@ -273,7 +277,13 @@
         const container_weight = Number(container.getElementsByClassName("pend-container-weight")[0].textContent)
         const container_percent = container.getElementsByClassName("pend-container-percent")[0]
         container_percent.textContent = Number((container_weight / total_weight) * 100).toFixed(3) + "%"
+        weight_total += Number(container.getElementsByClassName("pend-container-weight")[0].textContent)
+        percent_total += Number((container_weight / total_weight) * 100)
       }
+      console.log(weight_total)
+      console.log(percent_total)
+      weight_total_entry.textContent = weight_total
+      percent_total_entry.textContent = percent_total.toFixed(3) + "%"
     </script>
     {% endblock content %}
   </div>

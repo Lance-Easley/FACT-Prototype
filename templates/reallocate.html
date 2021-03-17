@@ -8,32 +8,83 @@
 <button class="btn btn-primary" onclick="window.history.back()">BACK</button>
 <div id="__queueform">
   <h1 style="text-align: center;">REALLOCATE REMAINING</h1>
-    <div class="info-field">
-      <p style="text-align: center;"><b>Weight: {{ form.contract_weight_left }}</p>
-    </div>
+  <section class="border-line">
+    <table class="text-center" style="margin:auto;">
+      <thead>
+        <td style="padding: 0 2rem;"><h5>Weight Remaining: </h5></td>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 0 2rem;"><p id="remaining" data-weight="{{ form.contract_weight_left }}"></p></td>
+        </tr>
+      </tbody>
+    </table>
   </section>
+
+  {% if form.errors.total %}
+    <div class="alert alert-danger text-center">
+      <strong>{{ form.errors.total|escape }}</strong>
+    </div>
+  {% elif form.errors %}
+    <div class="alert alert-danger text-center">
+      <strong>{{ form.errors|escape }}</strong>
+    </div>
+  {% endif %}
 
   <form method="POST">
     {% csrf_token %}
-    <table style="margin:auto">
+    <table class="mt-2" style="margin:auto">
+      <tr>
+        <td><p class="text-center"><b>Container:</b></p></td>
+        <td><p class="text-center"><b>Weight:</b></p></td>
+        <td><p class="text-center"><b>Percentage:</b></p></td>
+      </tr>
       {% for field in form %}
         <div class="container-control-container">
           <tr class="container-control">
             <td>{{ field.label_tag }}</td>
-            <td>{{ field }}</td>
-            <td><input type="number" class="percent-control" step="any">%</td>
+            <td>
+              <div class="input-group mb-2">
+                {{ field }}
+              </div>
+            </td>
+            <td>
+              <div class="input-group mb-2">
+                <input type="number" class="form-control percent-control" placeholder="Percentage" aria-label="Percentage" aria-describedby="basic-addon2" step="any">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2">%</span>
+                </div>
+              </div>
+            </td>
           </tr>
         </div>
       {% endfor %}
     </table>
-    <button style="font-size: 2rem; margin: auto">Transfer</button>
+    <div class="text-center mt-2">
+      <button id="trans" class="btn btn-success" style="font-size: 2rem;">Transfer</button>
+    </div>
   </form>
   <script>
     const controlContainer = document.querySelector(
       ".container-control-container"
-    );
-    const totalWeight = {{ form.from_container_weight }};
+      );
     const controls = document.querySelectorAll(".container-control");
+    const remainingWeight = document.querySelector("#remaining");
+    const totalWeight = remainingWeight.dataset.weight;
+    console.log(totalWeight)
+
+    function calculateWeightRemaining(controls, weight) {
+      var result = 0
+      for (const control of controls) {
+        const weightInput = control.querySelector("input[name]");
+        if (weightInput.value) {
+          if (weightInput.value > 0) {
+            result += Number(weightInput.value)
+          }
+        }
+      }
+      return Number(weight) - result
+    }
     
     for (const control of controls) { 
       const percentInput = control.querySelector(
@@ -42,12 +93,16 @@
       const weightInput = control.querySelector("input[name]");
       weightInput.addEventListener("input", () => {
         percentInput.value = ((Number(weightInput.value) / totalWeight) * 100).toFixed(3);
+        remainingWeight.innerHTML = calculateWeightRemaining(controls, totalWeight)
       });
       percentInput.value = ((Number(weightInput.value) / totalWeight) * 100).toFixed(3);
+      console.log(totalWeight)
       percentInput.addEventListener("input", () => {
-        weightInput.value = Math.round((totalWeight * Number(percentInput.value)) / 100);
+        weightInput.value = ((totalWeight * Number(percentInput.value)) / 100).toFixed(3);
+        remainingWeight.innerHTML = calculateWeightRemaining(controls, totalWeight)
       });
     }
+    remainingWeight.innerHTML = calculateWeightRemaining(controls, totalWeight)
   </script>
 </div>
 {% endblock %}

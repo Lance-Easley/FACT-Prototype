@@ -7,8 +7,12 @@ name = "pypi"
 django = "~=3.1.4"
 django-import-export = "*"
 whitenoise = "==5.1.0"
+xhtml2pdf = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true

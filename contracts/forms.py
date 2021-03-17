@@ -37,6 +37,7 @@ class QueuedContainerForm(forms.Form):
         self.container_weights = {}
         self.json = []
 
+        print("QUEUED FORM")
         if contract.pend_containers:
             # For some reason, calling the JSONField pend_containers as it is freezes the website, so I call it as a string, then convert it back to JSON
             self.json = json.loads(str(self.contract.pend_containers).replace("'", '"'))
@@ -102,7 +103,7 @@ class QueuedContainerForm(forms.Form):
         for c in Container.objects.filter(company_code=contract.company_code):
             self.fields[c.unit_descriptor] = forms.FloatField(
                 required=False, 
-                initial=self.container_weights.get(c.unit_descriptor), 
+                initial=self.container_weights.get(c.unit_descriptor, 0), 
                 widget=forms.TextInput(attrs={'class': 'form-control'})
             )
 
@@ -114,7 +115,8 @@ class QueuedContainerForm(forms.Form):
         for transfer in self.contract.curr_containers:
             if transfer["container"] == self.from_container:
                 for distrib in transfer["distribution"]:
-                    weight = int(distrib["weight"])
+                    weight = float(distrib["weight"])
+                    print("weight: ", weight)
                     total += weight
         return total
 
@@ -173,6 +175,7 @@ class ReallocateForm(forms.Form):
         self.container_weights = {}
         self.json = []
 
+        print("REALLOCATE FORM")
         if contract.pend_containers:
             # For some reason, calling the JSONField pend_containers as it is freezes the website, so I call it as a string, then convert it back to JSON
             self.json = json.loads(str(self.contract.pend_containers).replace("'", '"'))
@@ -220,7 +223,6 @@ class ReallocateForm(forms.Form):
                             self.json.append(j_content)
                         else:
                             c['distribution'] = distribution
-                self.container_weights.update(entry)
         else:
             # If pend_containers does not exist, then we must make a new entry
             entry = {}
@@ -238,21 +240,20 @@ class ReallocateForm(forms.Form):
                                 entry.update({curr_container["container"]: str(curr_container["weight"])})
                                 j_list.append({"container": curr_container["container"], "weight": str(curr_container["weight"])})
                     else:
-                        entry.update({container.unit_descriptor: '0'})
-                        j_list.append({"container": container.unit_descriptor, "weight": '0'})
+                        entry.update({container.unit_descriptor: 0})
+                        j_list.append({"container": container.unit_descriptor, "weight": 0})
                     j_content = {"container": 'reallocate', "distribution": j_list}
                     print("")
-                self.json.append(j_content)
-                self.container_weights.update(entry)
+            self.json.append(j_content)
 
         self.container_weights.update(entry)
         print("cont_weights: ", self.container_weights)
         # Generate Integer fields for each container that belongs to the contract's company
         for c in Container.objects.filter(company_code=contract.company_code):
-            if self.container_weights.get(c.unit_descriptor) == '0':
+            if self.container_weights.get(c.unit_descriptor, 0) == 0:
                 self.fields[c.unit_descriptor] = forms.FloatField(
                 required=False, 
-                initial=self.container_weights.get(c.unit_descriptor), 
+                initial=self.container_weights.get(c.unit_descriptor, 0), 
                 widget=forms.TextInput(attrs={'class': 'form-control'})
             )
 
@@ -268,27 +269,21 @@ class ReallocateForm(forms.Form):
             # Sum all weights in pend_containers first
             for transfer in self.contract.pend_containers:
                 for distrib in transfer["distribution"]:
-                    weight = distrib["weight"]
+                    weight = float(distrib["weight"])
                     total += weight
                     if weight > 0:
                         containers_with_weight.append(distrib["container"])
-            # if the pending container's weights do not take up full weight, grab from the unedited curr_containers
-            if total != self.contract.total_weight:
-                for transfer in self.contract.pend_containers:
-                    for distrib in transfer["distribution"]:
-                        weight = distrib["weight"]
-                        if distrib["container"] not in containers_with_weight:
-                            total += weight
-                            if weight > 0:
-                                containers_with_weight.append(distrib["container"])
-        else:
-            for transfer in self.contract.curr_containers:
-                for distrib in transfer["distribution"]:
-                    weight = int(distrib["weight"])
-                    total += weight
-                    if weight > 0:
-                        containers_with_weight.append(distrib["container"])
+            # # if the pending container's weights do not take up full weight, grab from the unedited curr_containers
+            # if total != self.contract.total_weight:
+            #     for transfer in self.contract.pend_containers:
+            #         for distrib in transfer["distribution"]:
+            #             weight = float(distrib["weight"])
+            #             if distrib["container"] not in containers_with_weight:
+            #                 total += weight
+            #                 if weight > 0:
+            #                     containers_with_weight.append(distrib["container"])
         # if the pending container's weights do not take up full weight, grab from the unedited curr_containers
+        print(total)
         return abs(self.contract.total_weight - total)
 
 
@@ -302,34 +297,14 @@ class ReallocateForm(forms.Form):
         pending_weight_total = sum(
             cleaned_data.get(c, 0) or 0 for c in company_containers
         )
-        if self.contract.pend_containers:
-            weight = self.contract_weight_left
-        else:
-            weight = self.contract.total_weight
-        if pending_weight_total > weight:
+        weight = self.contract_weight_left
+        if pending_weight_total != weight:
             print("Pend: ", pending_weight_total)
             print("Weight: ", weight)
             print("Container weights must total to the contract's total weight.")
-            self.errors["total"] = "Container weights must total to the contract's total weight."
+            self.errors["total"] = "All weight must be allocated."
             raise ValidationError(
                 "Container weights must total to the contract's total weight."
-            )
-
-        is_empty = True
-        print("JSON: ", self.json)
-        for transfer in self.json:
-            if is_empty:
-                if transfer["container"] == 'reallocate':
-                    for container in transfer["distribution"]:
-                        if int(container["weight"]) > 0:
-                            is_empty = False
-                            break
-            else:
-                break
-        
-        if is_empty:
-            raise ValidationError(
-                "Reallocation must not be empty."
             )
 
         return cleaned_data
@@ -340,11 +315,15 @@ class ReallocateForm(forms.Form):
         # Returns full JSON string to be stored in pend_containers feild
         for transfer in self.json:
             if transfer["container"] == 'reallocate':
-                distrib = [
-                    {"container": c, "weight": w}
-                    for c, w in self.cleaned_data.items()
-                    if w is not None or w != 0
-                ]
+                distrib = []
+                for c, w in self.cleaned_data.items():
+                    print(repr(w))
+                    if w == None or w == 0:
+                        pass
+                    else:
+                        distrib.append({"container": c, "weight": w})
+
+                print(distrib, "\n")
                 transfer["distribution"] = distrib
         print("a: ", self.json)
         return json.loads(str(self.json).replace("'", '"'))
