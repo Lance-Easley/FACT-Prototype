@@ -34,36 +34,28 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      {% url 'home' as url %} 
-      <button
-        class="navbar-toggler {% if request.path == url %}active{% endif %}"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="{{ url }}">FACT</a>
-
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="{% url 'home' %}">F.A.C.T.</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          {% url 'contracts' as url %}
-          <li class="nav-item {% if request.path == url %}active{% endif %}">
-            <a class="nav-link" href="{{ url }}">CONTRACTS</a>
+          {% with url_name=request.resolver_match.url_name %}
+          <li class="nav-item {% if url_name == 'contracts' or url_name == 'contract_detail' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'contracts' %}">Contracts</a>
+      
           </li>
-          {% url 'queue_list' as url %}
-          <li class="nav-item {% if request.path == url %}active{% endif %}">
-            <a class="nav-link" href="{{ url }}">QUEUED</a>
+          <li class="nav-item {% if url_name == 'queue_list' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'queue_list' %}">Queued</a>
             <!-- <a class="nav-link active" href="{% url 'queue_list' %}">QUEUED</a> -->
           </li>
-          {% url 'containers' as url %}
-          <li class="nav-item {% if request.path == url %}active{% endif %}">
-            <a class="nav-link" href="{{ url }}">CONTAINERS</a>
+          <li class="nav-item {% if url_name == 'containers' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'containers' %}">Containers</a>
           </li>
+          {% endwith %}
         </ul>
+      </div>
       </div>
     </nav>
 
