@@ -284,7 +284,8 @@ class ReallocateForm(forms.Form):
             #                     containers_with_weight.append(distrib["container"])
         # if the pending container's weights do not take up full weight, grab from the unedited curr_containers
         print(total)
-        return abs(self.contract.total_weight - total)
+        print("ct: ", self.contract.total_weight)
+        return float(format(self.contract.total_weight - total, ".3f"))
 
 
     def clean(self):
